@@ -3,7 +3,7 @@ import { Card } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { reRouteAction } from '../../../redux/actions';
-import { Post, User } from '../../../redux/interfaces';
+import { Post } from '../../../redux/interfaces';
 import PostAuthor from '../author/PostAuthor';
 
 interface Props {
@@ -26,9 +26,9 @@ export const SharedPost: React.FC<Props> = ({ newPost, post }) => {
         <div className="sharePostDiv">
           <div className="sharePost pt-3">
             <div className="d-flex">
-              <PostAuthor {...(post?.user as User)} /> <div></div>
+              <PostAuthor {...post?.user} /> <div></div>
             </div>
-            <div onClick={() => route(String(post?.id))} className="blog-link">
+            <div className="blog-link">
               <Card.Title className="sharePostText">
                 {post?.sharedPost.text}
               </Card.Title>

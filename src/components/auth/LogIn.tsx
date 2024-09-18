@@ -71,7 +71,9 @@ const LogIn: React.FC = () => {
     <Loader />
   ) : (
     <div id="loginContainer" className="col3">
-      <div className="text-center createAcc textColor">Login to LexySpace</div>
+      <div className="text-center text-dark createAcc textColor">
+        Login to LexySpace
+      </div>
       <Col sm={6} md={4} className="customMT mx-auto">
         {error && (
           <Alert className="alert text-center" variant="danger">
@@ -103,25 +105,21 @@ const LogIn: React.FC = () => {
           ))}
 
           <div className="loginBtn">
-            {input.password.length < 5 ? (
+            {
               <Button
                 variant="primary"
-                disabled
-                className="disabled1"
+                disabled={input.password.length < 5}
+                className="modal-btn"
                 type="submit"
               >
                 Log in
               </Button>
-            ) : (
-              <Button variant="primary" className="modal-btn" type="submit">
-                Log in
-              </Button>
-            )}
+            }
           </div>
           <Form.Text>
             Don't have an account?{' '}
             <Link className="signin" to="/register">
-              <a href="#signUp" className="signUp">
+              <a href="#signUp" className="signin">
                 Sign Up
               </a>
             </Link>

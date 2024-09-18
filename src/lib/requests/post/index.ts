@@ -1,4 +1,5 @@
 import { Dispatch } from 'redux';
+import { Post } from 'src/redux/interfaces';
 import { Actions } from '../../../redux/actions';
 import API from '../../API';
 import {
@@ -9,12 +10,19 @@ import {
 
 export async function getPosts(dispatch: Dispatch, postId?: string) {
   try {
-    const { data } = await API.get(postId ? `/posts/${postId}` : '/posts');
+    const { data } = await API.get<{ posts: Post[] }>('/posts');
+
     if (data) {
       dispatch({
         type: Actions.GET_POSTS,
         payload: data.posts,
       });
+
+      if (postId)
+        dispatch({
+          type: Actions.SET_POST,
+          payload: data.posts.find((p) => p.id === postId),
+        });
     }
   } catch (error) {
     console.log(error);

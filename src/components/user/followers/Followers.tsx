@@ -69,7 +69,7 @@ const Followers: React.FC = () => {
           <ListGroup id="listGroup">
             {followers &&
               followers.map((follower) => (
-                <ListGroup.Item id="listGroup" key={follower.id}>
+                <ListGroup.Item id="listGroup" key={follower.userName}>
                   <FollowersList
                     f={follower}
                     id={id}

@@ -1,8 +1,9 @@
-import React, { FC, useState } from 'react';
+import { FC, useState } from 'react';
 import { ListGroup } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { GET_STORE } from 'src/redux/store';
 import { Post } from '../../../redux/interfaces';
+import CommentComponent from '../comment/Comment';
 import { DropDown } from './DropDown';
 import { InteractionButtons } from './InteractionButtons';
 import { PostDetails } from './PostDetail';
@@ -10,20 +11,22 @@ import { SharedPost } from './SharedPost';
 import './styles.scss';
 
 interface Props {
-  postId: string;
+  post: Post;
 }
 
-const PostItem: FC<Props> = ({ postId }) => {
+const PostItem: FC<Props> = ({ post }) => {
   const [smShow, setSmShow] = useState(false);
   const [reload, setReload] = useState(false);
+  const [isClicked, setIsClicked] = useState(false);
 
   const {
     data: { posts, user: newUser },
   } = useSelector(GET_STORE);
 
-  const post = posts.find((p) => p.id === postId);
   const newPost = posts?.find((p) => p.id === post?.id);
   const me = newUser?.id;
+
+  console.log(post?.comments);
 
   const dropDownProps = {
     me,
@@ -46,15 +49,14 @@ const PostItem: FC<Props> = ({ postId }) => {
 
   return (
     <ListGroup>
-      <ListGroup.Item
-        style={{ border: '1px solid rgb(216, 215, 215)' }}
-        key={post?.id}
-        className="blog-card"
-      >
+      <ListGroup.Item key={post?.id} className="blog-card">
         <DropDown data={dropDownProps} />
-        <PostDetails post={post} />
+        <PostDetails {...{ post, setIsClicked }} />
         <SharedPost {...{ ...sharedPostProps }} />
         <InteractionButtons {...{ ...interactionButtonProps }} />
+        {isClicked && post?.comments?.length > 0 && (
+          <CommentComponent {...{ post: post as Post }} />
+        )}
       </ListGroup.Item>
     </ListGroup>
   );

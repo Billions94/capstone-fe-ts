@@ -6,18 +6,9 @@
     background-color: rgb(231, 226, 221);
   }
 
-  // .jumbotron-banner1 {
-  //   background-image: url("https://wallpaper.dog/large/5510815.jpg");
-  //   background-position: top;
-  //   background-repeat: no-repeat;
-  //   background-size: 80%;
-  //   // width: 567px;
-
-  // }
-
   .recentDiv {
-    padding-right: 1.25rem!important;
-    padding-left: 1.25rem!important;
+    padding-right: 1.25rem !important;
+    padding-left: 1.25rem !important;
   }
 
   .cover {
@@ -38,12 +29,12 @@
   }
 
   .userJumbo {
-    border-left: 1px solid #24224a !important;
-    border-right: 1px solid #24224a !important;
-    border-bottom: 1px solid #24224a !important;
-    box-shadow: 0px 0px 1px #d8d7d7;
+    background: #f9ead7;
+    width: 1120px;
+    border-left: 1px solid #ffd1c5 !important;
+    border-right: 1px solid #ffd1c5 !important;
+    border-bottom: 1px solid #ffd1c5 !important;
   }
-  
 
   .coverUpdateBtn {
     width: 40px;
@@ -84,22 +75,21 @@
     left: 25px;
     border-radius: 50%;
     display: block;
-    // border: 1px solid rgb(216, 215, 215);
   }
 
-  #jinx {
+  #user-details {
     align-items: center;
     margin-top: -75px;
-    color: #dadada;
+    color: #000;
   }
 
   .ml5 {
     margin-left: 10px;
   }
 
-  .customLinks1 {
+  .followers-link {
     background-color: transparent;
-    color: #0056b3;
+    color: #000;
     border-radius: 20px;
     font-size: 14px;
     font-style: normal;
@@ -107,10 +97,10 @@
     line-height: 18px;
   }
 
-  .customLinks1:hover {
+  .followers-link:hover {
     cursor: pointer;
     text-decoration: underline;
-    color: #0056b3;
+    color: #f91880;
   }
 
   .magicRow {
@@ -120,9 +110,7 @@
   .jumboBorder {
     border: 1px solid black;
     border-radius: 20px;
-    // margin-top: 90px;
   }
-
 
   .jumbobtn-open-to {
     border: 1px solid rgb(33, 93, 172);
@@ -181,105 +169,61 @@
     cursor: pointer;
   }
 
-  // .followbtn {
-  //     border-radius: 20px;
-  //     border: 1px solid grey;
-  //     color: black;
-  //     background-color: transparent;
-  //     box-shadow: 5px 5px 1px black;
-  // }
-
-  // .followbtn:hover {
-  //     border-radius: 20px;
-  //     color: black;
-  //     background-color: antiquewhite;
-  // }
-
-  // .followbtn:active {
-  //     outline: none;
-  //     box-shadow: 5px 5px 1px black;
-  // }
-
-  // .followbtn:focus {
-  //     outline: none;
-  //     box-shadow: 5px 5px 1px black;
-  // }
-
-  // .followbtn:focus-visible {
-  //     outline: none;
-  //     box-shadow: none;
-  // }
-
-  // .nowfollowing {
-  //     border-radius: 20px !important;
-  //     background-color: #f91880 !important;
-  //     border: 1px solid #f91880 !important;
-  //     box-shadow: 5px 5px 1px black !important
-  // }
-
-  // .nowfollowing:active {
-  //     outline: none;
-  //     box-shadow: 5px 5px 1px black;
-  // }
-
-  // .nowfollowing:focus {
-  //     outline: none;
-  //     box-shadow: 5px 5px 1px black;
-  // }
-
-  // .nowfollowing:focus-visible {
-  //     outline: none;
-  //     box-shadow: none;
-  // }
   .followbtn {
     border-radius: 20px;
-    border: 1px solid #dadada;
+    border: none;
     color: black;
-    background-color: #dadada;
-    box-shadow: 5px 5px 1px black;
-  }
+    background: #ffd1c5;
+    box-shadow: -5px 5px 1px black !important;
 
-  .followbtn:hover {
-    border-radius: 20px;
-    color: black;
-    background-color: antiquewhite;
-  }
+    &:hover {
+      border-radius: 20px;
+      color: black;
+      background-color: #fdc7ba;
+      box-shadow: none !important;
+    }
 
-  .followbtn:active {
-    outline: none;
-    box-shadow: 5px 5px 1px black;
-  }
+    &:active {
+      outline: none;
+      box-shadow: 5px 5px 1px black;
+    }
 
-  .followbtn:focus {
-    outline: none;
-    box-shadow: 5px 5px 1px black;
-  }
+    &:focus {
+      outline: none;
+      box-shadow: 5px 5px 1px black;
+    }
 
-  .followbtn:focus-visible {
-    outline: none;
-    box-shadow: none;
+    &:focus-visible {
+      outline: none;
+      box-shadow: none;
+    }
   }
 
   .nowfollowing {
     border-radius: 20px !important;
     background-color: #f91880 !important;
     border: 1px solid #f91880 !important;
-    box-shadow: -5px 5px 1px black !important
-  }
+    box-shadow: -5px 5px 1px black !important;
 
-  .nowfollowing:active {
-    outline: none;
-    box-shadow: 5px 5px 1px black;
-  }
+    &:hover {
+      background-color: #e41575;
+      box-shadow: none !important;
+    }
 
-  .nowfollowing:focus {
-    outline: none;
-    box-shadow: 5px 5px 1px black;
-  }
+    &:active {
+      outline: none;
+      box-shadow: 5px 5px 1px black;
+    }
 
-  .nowfollowing:focus-visible {
-    outline: none;
-    box-shadow: none;
+    &:focus {
+      outline: none;
+      box-shadow: 5px 5px 1px black;
+    }
+
+    &:focus-visible {
+      outline: none;
+      box-shadow: none;
+    }
   }
 }
 
@@ -289,15 +233,14 @@
 
 #edit-profile {
   line-height: 15px !important;
-  font-family: "JetBrains Mono NL", serif !important;
+  font-family: 'JetBrains Mono NL', serif !important;
   font-weight: bold !important;
+  color: #000 !important;
 }
 
 #edit-profile1 {
+  @extend #edit-profile;
   position: relative;
-  line-height: 15px !important;
-  font-family: "JetBrains Mono NL", serif !important;
-  font-weight: bold !important;
   top: 6px;
 }
 
@@ -307,39 +250,45 @@
   #form {
     #control {
       border: none;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.7) !important;
-      border-radius: 0 !important;
-      display: block;
+      color: #000 !important;
+      background: #ffd1c5 !important;
+      border-radius: 30px !important;
       line-height: 15px;
-      font-family: "JetBrains Mono NL", serif;
+      font-family: 'JetBrains Mono NL', serif;
       font-weight: normal;
+      font-size: 16px;
       position: relative;
       top: 5px;
-      padding: 0 10px;
+      padding: 5px 15px;
+
+      &:focus {
+        color: #000 !important;
+        border: none;
+      }
     }
   }
 
   .close {
     color: #f91880 !important;
     float: left !important;
-    font-size:2rem !important;
+    font-size: 2rem !important;
     font-weight: 700 !important;
     line-height: 1 !important;
-    text-shadow:none!important;
+    text-shadow: none !important;
     position: relative !important;
     right: 5% !important;
 
     &:hover {
       opacity: 1;
-
     }
   }
 
   .modal-content {
     height: 680px;
     border-radius: 20px;
-    background: #020024;
-    border: 1px solid #24224a;
+    background: #f9ead7;
+    background-clip: padding-box;
+    border: 1px solid #ffd1c5;
   }
 
   .modal-header {
@@ -351,7 +300,7 @@
     color: white;
     display: block;
     line-height: 15px;
-    font-family: "JetBrains Mono NL", serif;
+    font-family: 'JetBrains Mono NL', serif;
     font-weight: normal;
     position: relative;
     top: 5px;
@@ -373,11 +322,13 @@
     border: none;
     color: white;
     background-color: #f91880;
+
     p {
       display: block;
       line-height: 10px;
-      font-family: "JetBrains Mono NL", serif;
-      font-weight: normal;
+      font-family: 'JetBrains Mono NL', serif;
+      font-weight: 400;
+      font-size: 16px;
       position: relative;
       top: 5px;
     }
@@ -422,8 +373,9 @@
   .modal-content {
     height: 630px;
     border-radius: 20px;
-    background: #020024;
-    border: 1px solid #24224a;
+    background: #f9ead7;
+    background-clip: padding-box;
+    border: 1px solid #ffd1c5;
   }
 
   .modal-footer {
@@ -432,7 +384,7 @@
     align-items: center;
     justify-content: space-between;
     padding: 0.75rem;
-    border-top: 1px solid #24224a;
+    border-top: 1px solid #ffd1c5;
     border-bottom-right-radius: calc(0.3rem - 1px);
     border-bottom-left-radius: calc(0.3rem - 1px);
   }
@@ -445,7 +397,7 @@
     p {
       display: block;
       line-height: 15px;
-      font-family: "JetBrains Mono NL", serif;
+      font-family: 'JetBrains Mono NL', serif;
       font-weight: bold;
       position: relative;
       top: 5px;
@@ -461,16 +413,6 @@
 
   .modal-btn:focus {
     box-shadow: none;
-  }
-
-  .btnIcon:hover {
-    background: #24224a;
-  }
-
-  .btnIcon:focus {
-    box-shadow: none;
-    outline: none;
-    border: none;
   }
 
   .imgWrapper {
@@ -529,8 +471,8 @@
     border: 1px solid #f91880 !important;
 
     &:hover {
-      border-radius: 20px!important;
-      background-color: antiquewhite!important;
+      border-radius: 20px !important;
+      background-color: antiquewhite !important;
     }
   }
 
@@ -549,7 +491,7 @@
     box-shadow: none;
   }
 
-  .customLinks1 {
+  .followers-link {
     background-color: transparent;
     color: black;
     border-radius: 20px;
@@ -560,7 +502,7 @@
     text-decoration: none;
   }
 
-  .customLinks1:hover .nameInfo {
+  .followers-link:hover .nameInfo {
     cursor: pointer;
     text-decoration: underline;
     color: #0056b3;
@@ -576,32 +518,34 @@
 #recentPost {
   cursor: pointer;
   color: #dadada;
-  // border: 1px solid rgb(216, 215, 215);
-  // padding: 20px;
   margin-top: 10px;
+
   h5 {
-    border-bottom: 1px solid #24224a;
+    border-bottom: 1px solid #f91880;
     padding: 10px;
   }
+
   .recentItem {
+    overflow: hidden;
     width: 100px;
     height: 100px;
     border-radius: 50%;
-    border: 1px solid #24244a;
+    border: 1px solid #f91880;
     display: flex;
     align-items: center;
     justify-content: center;
+
     .media {
-      // width: 80px;
       z-index: -1;
       object-fit: cover;
       width: 100px;
       height: 100px;
       border-radius: 50%;
-      border: 1px solid #24244a;
+      border: 1px solid #ffd1c5;
     }
+
     .circleBorders {
-      // border: 1px solid black;
+      color: #000;
       border-radius: 50%;
     }
   }
@@ -611,7 +555,7 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly;
-  }  
+  }
 
   .postContainer:hover {
     cursor: pointer;
@@ -628,13 +572,23 @@
   .modal-content {
     height: 630px;
     border-radius: 20px;
-    background: #020024;
-    border: 1px solid #24224a;
+    background: #f9ead7;
+    background-clip: padding-box;
+    border: 1px solid #ffd1c5;
   }
 
   .modal-header {
-    border-bottom: 1px solid #24224a;
+    border-bottom: 1px solid #ffd1c5;
     color: #dadada;
+  }
+
+  .modal-title {
+    color: #000;
+    line-height: 15px !important;
+    font-family: 'JetBrains Mono NL', serif !important;
+    font-weight: bold !important;
+    color: #000 !important;
+    font-size: 18px !important;
   }
 
   .modal-footer {
@@ -643,7 +597,7 @@
     align-items: center;
     justify-content: space-between;
     padding: 0.75rem;
-    border-top: 1px solid #24224a;
+    border-top: 1px solid #ffd1c5;
     border-bottom-right-radius: calc(0.3rem - 1px);
     border-bottom-left-radius: calc(0.3rem - 1px);
   }
@@ -656,7 +610,7 @@
     p {
       display: block;
       line-height: 15px;
-      font-family: "JetBrains Mono NL", serif;
+      font-family: 'JetBrains Mono NL', serif;
       font-weight: bold;
       position: relative;
       top: 5px;

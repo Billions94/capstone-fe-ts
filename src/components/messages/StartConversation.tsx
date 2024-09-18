@@ -4,23 +4,22 @@ import { Socket } from 'socket.io-client';
 import { defaultAvatar } from '../../assets/icons';
 import { OnlineUser } from '../../interfaces/OnlineUser';
 import API from '../../lib/API';
-import { Rooms, User } from '../../redux/interfaces';
+import { Room, User } from '../../redux/interfaces';
+import { FormControlSize } from '../auth/interfaces';
 
 interface Props {
   onlineUsers: OnlineUser[];
   currentUser: User;
-  room: Rooms | null;
+  room: Room | null;
   setCurrentChat: any;
   socket: Socket;
-  setConversation: React.Dispatch<React.SetStateAction<Rooms[]>>;
+  setConversation: React.Dispatch<React.SetStateAction<Room[]>>;
   setOpenConvo: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const StartConversation: React.FC<Props> = ({
-  onlineUsers,
   currentUser,
   setCurrentChat,
-  room,
   socket,
   setConversation,
   setOpenConvo,
@@ -37,7 +36,6 @@ export const StartConversation: React.FC<Props> = ({
     try {
       const { data } = await API.get('/users');
       if (data) {
-        console.log(data);
         setUsers(data);
       }
     } catch (error) {
@@ -45,21 +43,22 @@ export const StartConversation: React.FC<Props> = ({
     }
   }
 
-  const newConversation = async (otherUser: OnlineUser) => {
+  const newConversation = async (receiver: User) => {
     try {
       const { data } = await API.post('/rooms', {
         senderId: currentUser.id,
-        receiverId: otherUser.id,
+        receiverId: receiver.id,
       });
       if (data) {
-        const newDT: Rooms = data[0];
-        setCurrentChat(newDT);
+        const room: Room = data[0];
+        setCurrentChat(room);
 
         socket.emit('startConversation');
         setConversation((prev) => [...prev, data]);
 
         setShow(false);
         setOpenConvo(true);
+        await getUsers();
       }
     } catch (error) {
       console.log(error);
@@ -69,12 +68,17 @@ export const StartConversation: React.FC<Props> = ({
   return (
     <React.Fragment>
       <Modal
-        id="likesModal"
+        id="new-conversation-modal"
         show={show}
-        size="sm"
+        size={FormControlSize.LG}
         centered
         onHide={() => setShow(false)}
-        style={{ borderRadius: '20px' }}
+        style={{
+          borderRadius: '20px',
+          position: 'absolute',
+          left: '50%',
+          transform: 'translate(-50%, 0)',
+        }}
         aria-labelledby="example-modal-sizes-title-sm"
       >
         <Modal.Header closeButton>
@@ -82,15 +86,17 @@ export const StartConversation: React.FC<Props> = ({
         </Modal.Header>
         <Modal.Body>
           {show === true &&
-            users &&
             users
-              .filter((user) => user.userName !== currentUser.userName)
-              .map((user, idx) => (
+              ?.filter((user) => user.userName !== currentUser.userName)
+              .map((user) => (
                 <div
+                  key={user.userName}
                   className="d-flex mb-3"
-                  key={idx}
                   style={{ cursor: 'pointer' }}
-                  onClick={() => newConversation(user as any as OnlineUser)}
+                  onClick={() => {
+                    console.log(user.id);
+                    newConversation(user);
+                  }}
                 >
                   <div>
                     <Image
@@ -103,9 +109,7 @@ export const StartConversation: React.FC<Props> = ({
                   </div>
 
                   <div className="ml-2 mt-2">
-                    <strong style={{ color: '#e8e8e8' }}>
-                      {user.userName}
-                    </strong>
+                    <strong>{user.userName}</strong>
                     <span>{''}</span>
                   </div>
                 </div>
@@ -114,7 +118,7 @@ export const StartConversation: React.FC<Props> = ({
       </Modal>
       <div>
         {!show && (
-          <Button size="sm" onClick={handleShow}>
+          <Button className="start-conversation" size="sm" onClick={handleShow}>
             <span>{show ? 'Close' : 'Start convo'}</span>
           </Button>
         )}

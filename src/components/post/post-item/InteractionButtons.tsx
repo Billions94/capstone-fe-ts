@@ -22,8 +22,10 @@ export const InteractionButtons: React.FC<Props> = ({
 }) => {
   const dispatch = useDispatch();
   const liker = { userId };
-  const { user: loggedInUser } = useSelector(GET_STORE).data;
+  const { user: loggedInUser, post: postFromRedux } =
+    useSelector(GET_STORE).data;
 
+  const likesToUse = !postFromRedux ? post?.likes : postFromRedux.likes ?? [];
   const [commentLabel, setCommentLabel] = React.useState(false);
   const [likeLabel, setLikeLabel] = React.useState(false);
   const [shareLabel, setShareLabel] = React.useState(false);
@@ -46,7 +48,7 @@ export const InteractionButtons: React.FC<Props> = ({
   const like = async () => {
     try {
       await API.patch(`/posts/${post?.id}/likes`, liker);
-      await getPosts(dispatch);
+      await getPosts(dispatch, post?.id);
     } catch (error) {
       console.log(error);
     }
@@ -81,7 +83,7 @@ export const InteractionButtons: React.FC<Props> = ({
       >
         <button className="candl" onClick={handleShow}>
           <img
-            src="https://img.icons8.com/ios-filled/50/ffffff/comment-discussion.png"
+            src="https://img.icons8.com/ios-filled/50/000000/comment-discussion.png"
             width="20px"
             alt=""
           />
@@ -112,13 +114,13 @@ export const InteractionButtons: React.FC<Props> = ({
             <button className={className ? `candl ml-3` : `candl`}>
               <img
                 className="interactions"
-                src="https://img.icons8.com/ios-filled/50/ffffff/two-hearts.png"
+                src="https://img.icons8.com/ios-filled/50/000000/two-hearts.png"
                 width="20px"
                 alt=""
               />
             </button>
             <button className="text-dark btnX">
-              <span>{post?.likes.length}</span>
+              <span>{likesToUse?.length}</span>
             </button>
             {!likeLabel ? null : (
               <Badge pill variant="secondary" className="interactionBadge">
@@ -131,13 +133,13 @@ export const InteractionButtons: React.FC<Props> = ({
             <button className={className ? `candl ml-3` : `candl`}>
               <img
                 className="interactions"
-                src="https://img.icons8.com/color/50/ffffff/two-hearts.png"
+                src="https://img.icons8.com/color/50/000000/two-hearts.png"
                 width="20px"
                 alt=""
               />
             </button>
             <button className="text-dark btnX">
-              <span>{post?.likes.length}</span>
+              <span>{likesToUse?.length}</span>
             </button>
             {!likeLabel ? null : (
               <Badge pill variant="secondary" className="interactionBadge">
@@ -157,7 +159,7 @@ export const InteractionButtons: React.FC<Props> = ({
           onClick={handleShareShow}
         >
           <img
-            src="https://img.icons8.com/ios-filled/50/ffffff/right2.png"
+            src="https://img.icons8.com/ios-filled/50/000000/right2.png"
             width="20px"
             alt=""
           />

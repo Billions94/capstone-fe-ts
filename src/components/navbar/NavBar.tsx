@@ -1,8 +1,9 @@
-import React, { FC, useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { Button, Container, Navbar } from 'react-bootstrap';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 import API from '../../lib/API';
+import { getPostsAction } from '../../redux/actions';
 import { GET_STORE } from '../../redux/store';
 import { useReroute } from '../hooks/useReroute';
 import PostModal from '../post/crud/PostModal';
@@ -14,6 +15,8 @@ import './styles.scss';
 const NavBar: FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [isScrolled, setIsScrolled] = useState(false);
 
   const [show, setShow] = useState(false);
   const { route } = useReroute();
@@ -39,6 +42,7 @@ const NavBar: FC = () => {
   }
 
   useEffect(() => {
+    dispatch(getPostsAction());
     if (
       location.pathname === '/register' ||
       location.pathname === '/login' ||
@@ -47,6 +51,20 @@ const NavBar: FC = () => {
       return;
     }
   }, [show, loggedInUserId]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 0) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
 
   return (
     <>
@@ -58,7 +76,13 @@ const NavBar: FC = () => {
               <Navbar
                 key={item.name}
                 expand="lg"
-                className={item.container.divClassName}
+                className={
+                  isScrolled
+                    ? item.container.divClassName + ' scroll'
+                    : item.path !== '/home'
+                    ? 'blog-navbar-not-home'
+                    : item.container.divClassName
+                }
                 fixed="top"
               >
                 <Container className={item.container.className}>
@@ -98,6 +122,7 @@ const NavBar: FC = () => {
                           flag={true}
                           userId={loggedInUserId}
                           user={user}
+                          isScrolled={isScrolled}
                         />
                       </div>
                     </div>

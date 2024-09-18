@@ -1,11 +1,9 @@
 .modal-backdrop.show {
-  background-color: #627484 ;
+  background-color: #627484;
 }
 
 #postModal {
-  .modal-backdrop.show.fade {
-    background-color: #627484 ;
-  }
+  top: 8%;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -14,22 +12,25 @@
   background-clip: padding-box;
   border-radius: 20px;
 
+  .modal-backdrop.show.fade {
+    background-color: #627484;
+  }
+
   .modal-content {
+    height: 450px;
     position: relative;
     display: flex;
     flex-direction: column;
     width: 100%;
     pointer-events: auto;
-    background: #020024;
+    background: #f9ead7;
     background-clip: padding-box;
-    border: 1px solid #24224a;
+    border: 1px solid #ffd1c5;
     border-radius: 20px;
-    // box-shadow: -15px 15px 5px #505050;
-    // box-shadow: 10px 10px 5px #505050;
   }
 
   .modal-header {
-    border-bottom: 1px solid #24224a;
+    border-bottom: 1px solid #ffd1c5;
     color: #dadada;
   }
 
@@ -73,16 +74,9 @@
     color: #dadada;
   }
 
-  .btnIcon {
-    border-radius: 50%;
-  }
-
-  .btnIcon:hover {
-    background: #24224a;
-  }
-
   .roundpic {
     border-radius: 50%;
+    cursor: pointer;
   }
 
   .userInfo {
@@ -90,23 +84,13 @@
     font-size: 16px;
     line-height: 24px;
     font-style: normal;
-    font-family: -apple-system, system-ui, "system-ui", "Segoe UI", Roboto, "Helvetica Neue", "Fira Sans", Ubuntu, Oxygen, "Oxygen Sans", Cantarell, "Droid Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Lucida Grande", Helvetica, Arial, sans-serif;
+    font-family: -apple-system, system-ui, 'system-ui', 'Segoe UI', Roboto,
+      'Helvetica Neue', 'Fira Sans', Ubuntu, Oxygen, 'Oxygen Sans', Cantarell,
+      'Droid Sans', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Emoji',
+      'Segoe UI Symbol', 'Lucida Grande', Helvetica, Arial, sans-serif;
     span {
       color: #dadada;
     }
-  }
-
-  .textarea {
-    border: none;
-    resize: none;
-  }
-
-  .textarea:focus {
-    box-shadow: none;
-    outline: none;
-    border: none;
-    background: #020024;
-    color: #dadada;
   }
 
   .form1 {
@@ -116,8 +100,39 @@
   .userInfoContainer {
     padding: 0 12px;
   }
+}
 
+#mediaDetails {
+  .class {
+    padding: 10px 10px;
+    border: 2px solid#ffd1c5;
+    border-radius: 25px;
+  }
+}
 
+#editModal {
+  @extend #postModal;
+  width: 240px;
+  top: 0;
+
+  .modal-header {
+    border-bottom: 1px solid #ffd1c5 !important;
+    color: #dadada;
+  }
+
+  .modal-body {
+    overflow: hidden !important;
+    padding: 20px 20px !important;
+  }
+
+  .form-control {
+    border: none !important;
+    outline: none;
+  }
+
+  textarea {
+    color: #000 !important;
+  }
 }
 
 .customLinks:hover {
@@ -151,6 +166,24 @@
   text-decoration: none;
 }
 
+textarea {
+  background: #f9ead7 !important;
+  border: none !important;
+
+  &:focus {
+    background: #f9ead7;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+  }
+
+  &:active {
+    background: #f9ead7;
+    border: none !important;
+    outline: none !important;
+  }
+}
+
 #shareModal {
   position: relative;
   display: flex;
@@ -167,18 +200,17 @@
     flex-direction: column;
     width: 100%;
     pointer-events: auto;
-    background: #020024;
+    background: #f9ead7;
     background-clip: padding-box;
-    border: 1px solid #24224a;
+    border: 1px solid #ffd1c5;
     border-radius: 20px;
     height: 430px;
     border-radius: 20px;
-    // box-shadow: -15px 15px 5px #505050;
     border-radius: 20px;
   }
 
   .modal-header {
-    border-bottom: 1px solid #24224a;
+    border-bottom: 1px solid #ffd1c5;
     color: #dadada;
   }
 
@@ -199,18 +231,26 @@
 
   .modal-btn {
     border-radius: 20px;
-    border: none;
+    border: none !important;
+    outline: none !important;
     color: white;
-    background-color: #f91880;
-    box-shadow: -5px 5px 1px black;
-  }
+    background-color: #f91880 !important;
+    box-shadow: -5px 5px 1px black !important;
 
-  .modal-btn:hover {
-    background-color: #e41575;
-  }
+    &:hover {
+      background-color: #e41576e0 !important;
+    }
 
-  .modal-btn:focus {
-    box-shadow: none;
+    &:active {
+      border: none !important;
+      outline: none !important;
+    }
+
+    &:focus {
+      box-shadow: none !important;
+      border: none !important;
+      outline: none !important;
+    }
   }
 
   .modal-title {
@@ -218,14 +258,6 @@
     font-size: 20px;
     line-height: 28px;
     margin-bottom: 0;
-  }
-
-  .btnIcon {
-    border-radius: 50%;
-  }
-
-  .btnIcon:hover {
-    background: #24224a;
   }
 
   .roundpic {
@@ -237,23 +269,13 @@
     font-size: 16px;
     line-height: 24px;
     font-style: normal;
-    font-family: -apple-system, system-ui, "system-ui", "Segoe UI", Roboto, "Helvetica Neue", "Fira Sans", Ubuntu, Oxygen, "Oxygen Sans", Cantarell, "Droid Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Lucida Grande", Helvetica, Arial, sans-serif;
+    font-family: -apple-system, system-ui, 'system-ui', 'Segoe UI', Roboto,
+      'Helvetica Neue', 'Fira Sans', Ubuntu, Oxygen, 'Oxygen Sans', Cantarell,
+      'Droid Sans', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Emoji',
+      'Segoe UI Symbol', 'Lucida Grande', Helvetica, Arial, sans-serif;
     span {
       color: #dadada;
     }
-  }
-
-  .textarea {
-    border: none;
-    resize: none;
-  }
-
-  .textarea:focus {
-    box-shadow: none;
-    outline: none;
-    border: none;
-    background: #020024;
-    color: #dadada;
   }
 
   .form1 {
@@ -283,7 +305,7 @@
     border-radius: 20px;
     color: #dadada;
   }
-  
+
   .sharePostDiv {
     padding: 0 10px;
   }

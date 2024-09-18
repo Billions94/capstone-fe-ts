@@ -1,15 +1,13 @@
-import React, { FC, Fragment, useState } from 'react';
+import { FC, Fragment, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { ReduxState } from '../../../redux/interfaces';
+import { GET_STORE } from 'src/redux/store';
 import RecentItem from './RecentItem';
 
-interface Props {
-  userId: string | undefined;
-}
-
-const Recentposts: FC<Props> = ({ userId }) => {
+const RecentPosts: FC = () => {
   const [showRecent, setShowRecent] = useState(true);
-  const { posts } = useSelector((state: ReduxState) => state['data']);
+  const { posts, user } = useSelector(GET_STORE).data;
+
+  console.log({ posts });
 
   function toggle() {
     !showRecent ? setShowRecent(true) : setShowRecent(false);
@@ -17,7 +15,7 @@ const Recentposts: FC<Props> = ({ userId }) => {
 
   return (
     <div id="recentPost">
-      <h5 onClick={() => toggle()} className="text-center">
+      <h5 onClick={() => toggle()} className="text-center text-dark">
         #recent activities
       </h5>
       <div className="recentDiv">
@@ -25,7 +23,9 @@ const Recentposts: FC<Props> = ({ userId }) => {
           <>
             {posts.map((post) => (
               <Fragment key={post.id}>
-                {userId === post.user.id ? <RecentItem post={post} /> : null}
+                {user.userName === post.user.userName ? (
+                  <RecentItem post={post} />
+                ) : null}
               </Fragment>
             ))}
           </>
@@ -35,4 +35,4 @@ const Recentposts: FC<Props> = ({ userId }) => {
   );
 };
 
-export default Recentposts;
+export default RecentPosts;

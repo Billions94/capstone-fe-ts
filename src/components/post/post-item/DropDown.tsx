@@ -1,4 +1,4 @@
-import React, { SetStateAction } from 'react';
+import React, { Fragment, SetStateAction } from 'react';
 import { Dropdown } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { Post, ReduxState, User } from '../../../redux/interfaces';
@@ -53,7 +53,7 @@ export const DropDown: React.FC<Props> = ({ data }) => {
         </Dropdown.Toggle>
         <Dropdown.Menu className="dropdownmenu">
           {post?.user?.id !== loggedInUser.id ? null : (
-            <>
+            <Fragment>
               <Edit data={updatePostProps} />
               <div className="d-flex customLinks">
                 <div className="mr-3">
@@ -64,14 +64,16 @@ export const DropDown: React.FC<Props> = ({ data }) => {
                     src="https://img.icons8.com/fluency/50/000000/delete-sign.png"
                   />
                 </div>
-                <div onClick={() => setSmShow(true)}>delete</div>
+                <div onClick={() => setSmShow(true)} className="text-dark">
+                  delete
+                </div>
               </div>
               <DeleteModal
                 postId={post.id}
                 smShow={smShow}
                 setSmShow={setSmShow}
               />
-            </>
+            </Fragment>
           )}
           {post?.user?.id !== loggedInUser.id && (
             <>

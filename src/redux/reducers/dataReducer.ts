@@ -11,6 +11,16 @@ const dataReducer = (state = initialState.data, action: AnyAction) => {
         ...state,
         tokens: payload,
       };
+    case Actions.SET_POST:
+      return {
+        ...state,
+        post: payload,
+      };
+    case Actions.TOGGLE_ACTIVITY_BAR:
+      return {
+        ...state,
+        hideActivityBar: payload,
+      };
     case Actions.GET_POSTS:
       return {
         ...state,

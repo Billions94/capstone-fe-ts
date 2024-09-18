@@ -45,3 +45,7 @@ export function getIsUpdated(post: Post) {
   const isUpdated = (post?.createdAt as any) < (post?.updatedAt as any);
   return isUpdated;
 }
+
+export function getFileType(fileType: string) {
+  return /heic|png|jpg|gif|pdf|jpeg/.exec(fileType.split('.').slice(-1).join());
+}

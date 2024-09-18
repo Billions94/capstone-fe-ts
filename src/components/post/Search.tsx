@@ -82,63 +82,66 @@ const Search = () => {
         </Form>
       </Col>
       <div>
-        {users &&
-          users.map((user) => (
-            <div key={user.id} className="d-flex">
-              <div
-                onClick={() => navigate(`/userProfile/${user.id}`)}
-                className="linkToProfile"
-              >
-                <LazyLoadImage
-                  className="profile-pic"
-                  src={user.image}
-                  alt=""
-                />
-                <div className="ml-2">
-                  <h6 className="firstandlastname">
-                    {user.firstName} {user.lastName}
-                    {user.isVerified && (
-                      <span className=" ml-1">
-                        <img
-                          alt=""
-                          className="mr-2"
-                          width="15"
-                          src="https://img.icons8.com/ios-filled/50/4a90e2/verified-account.png"
-                        />
-                      </span>
-                    )}
-                  </h6>
-                  <h6 className="username text-muted">@{user.userName}</h6>
-                  <h6 className="bio">{user.bio}</h6>
+        {input.length > 0
+          ? users.map((user) => (
+              <div key={user.userName} className="d-flex">
+                <div
+                  onClick={() => navigate(`/userProfile/${user.userName}`)}
+                  className="linkToProfile"
+                >
+                  <LazyLoadImage
+                    className="profile-pic"
+                    src={user.image}
+                    alt=""
+                  />
+                  <div className="ml-2">
+                    <h6 className="firstandlastname">
+                      {user.firstName} {user.lastName}
+                      {user.isVerified && (
+                        <span className=" ml-1">
+                          <img
+                            alt=""
+                            className="mr-2"
+                            width="15"
+                            src="https://img.icons8.com/ios-filled/50/4a90e2/verified-account.png"
+                          />
+                        </span>
+                      )}
+                    </h6>
+                    <h6 className="username text-muted">@{user.userName}</h6>
+                    <h6 className="bio">{user.bio}</h6>
+                  </div>
+                </div>
+                <div className="ml-auto">
+                  {user.id !== me && (
+                    <div className="ml-auto">
+                      {!anotherUser?.followers.some(
+                        (elem) => elem.id === me
+                      ) ? (
+                        <Button
+                          onClick={() => toggle(user?.id)}
+                          size="sm"
+                          variant="primary"
+                          className="followbtn ml-auto"
+                        >
+                          follow
+                        </Button>
+                      ) : (
+                        <Button
+                          onClick={() => toggle(user?.id)}
+                          size="sm"
+                          variant="primary"
+                          className="nowfollowing ml-auto"
+                        >
+                          following
+                        </Button>
+                      )}
+                    </div>
+                  )}
                 </div>
               </div>
-              <div className="ml-auto">
-                {user.id !== me && (
-                  <div className="ml-auto">
-                    {!anotherUser?.followers.some((elem) => elem.id === me) ? (
-                      <Button
-                        onClick={() => toggle(user?.id)}
-                        size="sm"
-                        variant="primary"
-                        className="followbtn ml-auto"
-                      >
-                        follow
-                      </Button>
-                    ) : (
-                      <Button
-                        onClick={() => toggle(user?.id)}
-                        size="sm"
-                        variant="primary"
-                        className="nowfollowing ml-auto"
-                      >
-                        following
-                      </Button>
-                    )}
-                  </div>
-                )}
-              </div>
-            </div>
-          ))}
+            ))
+          : null}
       </div>
     </div>
   );

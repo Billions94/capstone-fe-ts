@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
-import { useTokens } from 'src/util/funcs';
+import { useTokens } from '../../util/funcs';
 import Loader, { Animation } from '../loader/Loader';
 import './styles.scss';
 

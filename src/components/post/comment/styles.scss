@@ -43,6 +43,10 @@
   margin-top: 20px;
 }
 
+.comment-container {
+  padding-left: 80px;
+  padding-top: 40px;
+}
 
 .customBB {
   border-bottom: 1px solid #24224a;
@@ -85,14 +89,12 @@
   cursor: pointer;
 }
 
-
 .cAndR {
   display: flex;
   flex-direction: column;
   align-self: end;
   border-radius: 10px;
   border: 1px solid #24224a;
-  // background-color: rgb(253, 253, 253);
   padding: 10px;
   margin-bottom: 30px;
   width: 100%;
@@ -113,7 +115,6 @@
   background-color: transparent;
   border-radius: 50px;
   border: none;
-
 }
 
 .dropdownbtn:focus {
@@ -145,7 +146,6 @@
   background-color: rgb(216, 216, 216);
 }
 
-
 .dropToggle {
   width: 10%;
   height: 20px;
@@ -162,23 +162,22 @@
   background-color: rgb(216, 216, 216);
 }
 
-.btn-dark:not(:disabled):not(.disabled):active, .show>.btn-dark.dropdown-toggle {
-  color:black;
+.btn-dark:not(:disabled):not(.disabled):active,
+.show > .btn-dark.dropdown-toggle {
+  color: black;
   background-color: transparent;
-  
 }
 
-.replySpan {
-  font-weight: 400;
-  font-size: 13px;
-  line-height: 20px;
-  text-align: center;
-  padding: 10px;
-  margin-top: 10px;
-  margin-left: -10px;
-}
-
-
+// .replySpan {
+//   color: #000;
+//   font-weight: 400;
+//   font-size: 13px;
+//   line-height: 20px;
+//   text-align: center;
+//   padding: 10px;
+//   margin-top: 10px;
+//   margin-left: -10px;
+// }
 
 .delete {
   width: 30px;
@@ -211,18 +210,17 @@
   display: inline-block;
   margin-left: 0.255 em;
   vertical-align: 0.255 em;
-  content: "";
+  content: '';
   border-top: transparent;
 }
 
-
 .rply {
   border-radius: 10px;
-  border: 1px solid #24224a;;
+  border: 1px solid #24224a;
   background: #24224a;
   padding-bottom: 10px !important;
-  padding-right: 10px !important; 
-  padding-left: 10px !important; 
+  padding-right: 10px !important;
+  padding-left: 10px !important;
   color: #dadada;
 }
 
@@ -232,14 +230,14 @@
 }
 
 .dropdwnMenu {
-  padding-left: "10px" !important; 
-  padding-right: "10px" !important; 
-  border-radius: "25px" !important;
+  padding-left: '10px' !important;
+  padding-right: '10px' !important;
+  border-radius: '25px' !important;
 }
 
 .shareComment {
   border-radius: 20px;
-  border: 1px solid #24224a!important;
+  border: 1px solid #24224a !important;
   background-color: transparent;
   color: black;
   text-decoration: none;
@@ -253,27 +251,6 @@
   font-weight: 400;
   font-size: 15px;
   line-height: 14px;
-}
-
-
-.textarea {
-  border: none;
-  resize: none;
-  background: rgb(2,0,36);
-}
-
-.textarea:focus {
-  box-shadow: none;
-  outline: none;
-  border: none;
-}
-
-.btnIcon {
-  border-radius: 50px;
-}
-
-.btnIcon:hover {
-  background: #24224a;
 }
 
 .modal-btn {
@@ -296,7 +273,7 @@
 .addComments {
   margin-left: 14px;
   padding: 6px 0px 6px 12px;
-  border-top:  2px solid #24224a;
+  border-top: 2px solid #24224a;
 }
 
 .accCard {
@@ -326,6 +303,7 @@
 }
 
 .replyspan {
+  color: #000;
   position: absolute;
   margin-top: 110px;
   font-weight: 400;
@@ -337,6 +315,7 @@
 }
 
 .replyspan1 {
+  @extend .replyspan;
   position: absolute;
   margin-top: 210px;
   font-weight: 400;
@@ -375,7 +354,7 @@
   .dmText {
     border-radius: 20px;
     border: 1px solid #24224a;
-    background: #020024;
+    background: #ffd1c5;
     color: #dadada;
     text-decoration: none;
     position: relative;
@@ -385,6 +364,12 @@
     resize: both;
     min-height: 40px;
     line-height: 20px;
+
+    &:focus {
+      color: #000;
+      border: none;
+      box-shadow: 0 0 0 1px #f91880;
+    }
   }
 
   .sendBtnDm {
@@ -430,7 +415,7 @@
     cursor: pointer !important;
     z-index: 11;
   }
-  
+
   #input-icon1 {
     position: absolute;
     bottom: 10px;
@@ -441,15 +426,4 @@
     cursor: pointer !important;
     z-index: 11;
   }
-  
-  // #input-icon2 {
-  //   position: absolute;
-  //   bottom: 8px;
-  //   right: 7px;
-  //   width: 22px;
-  //   height: 22px;
-  //   font-weight: bolder;
-  //   cursor: pointer !important;
-  //   z-index: 11;
-  // }
 }

@@ -1,11 +1,10 @@
 import { Avatar } from '@mui/material';
-import { Link } from 'react-router-dom';
-import FollowButton from './FollowButton';
+import React, { Dispatch, SetStateAction, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { useEffect, Dispatch, SetStateAction } from 'react';
-import { User, ReduxState } from '../../../redux/interfaces';
+import { Link } from 'react-router-dom';
 import API from '../../../lib/API';
-import React from 'react';
+import { ReduxState, User } from '../../../redux/interfaces';
+import FollowButton from './FollowButton';
 
 interface FollowersListProps {
   f: User;
@@ -64,7 +63,7 @@ const FollowersList: React.FC<FollowersListProps> = ({
       <div key={f.id} className="d-flex mb-2">
         <Link
           to={`/userProfile/${f.id}`}
-          className="d-flex followersContainer customLinks1"
+          className="d-flex followersContainer followers-link"
         >
           <div className="">
             <Avatar

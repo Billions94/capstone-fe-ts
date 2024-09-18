@@ -1,34 +1,28 @@
 #dmContainer {
-  // background: url('https://desenio.de/bilder/artiklar/zoom/12307_2.jpg?imgwidth=435&qt=');
-  // background-repeat: repeat;
-  // background-position: -80px;
-
-  .customCol1 {
-    border-right: 1px solid #24224a;
-    border-left: 1px solid #24224a;
-    // border-top: 1px solid #24224a;
-    border-bottom: 1px solid #24224a;
-    // border-top-left-radius: 20px;
+  .user-column-dm {
+    border-right: 1px solid #f9ead7;
+    border-left: 1px solid #f9ead7;
+    border-bottom: 1px solid #f9ead7;
     background-color: transparent;
-    color: #dadada;
+    color: #000;
     padding: 0;
+    background: #f9ead7;
   }
 
-  .customCol2 {
-    border-right: 1px solid #24224a;
-    // border-top: 1px solid #24224a;
-    border-bottom: 1px solid #24224a;
-    // border-top-right-radius: 20px;
-    // border-bottom-right-radius: 20px;
+  .dm-column {
+    border-left: 1px solid #ffd1c5;
+    border-bottom: 1px solid #f9ead7;
     background-color: transparent;
-    color: #dadada;
+    color: #000;
     padding: 0;
+    background: #f9ead7;
   }
 
   .dmUserName {
     font-weight: 500;
     font-size: 16px;
     align-self: center;
+    color: #000;
   }
 
   .search {
@@ -37,6 +31,30 @@
     border: none;
     padding: 0 50px;
     transition: ease-in-out 0.3s;
+  }
+
+  .message-input {
+    overflow-y: hidden;
+    width: 100%;
+    border-radius: 20px;
+    padding: 0 50px;
+    transition: ease-in-out 0.3s;
+    background: #ffd1c5;
+    border: 1px solid #d8d7d7;
+    box-shadow: none;
+
+    &:focus {
+      background: #f9ead7;
+      border: none;
+      outline: none;
+      box-shadow: 0px 0px 0px 2px #ffd1c5;
+    }
+
+    &:active {
+      outline: none;
+      box-shadow: none;
+      border: 1px solid #d8d7d7;
+    }
   }
 
   .btnTextArea {
@@ -52,21 +70,14 @@
   }
 
   .uploadicons {
-    // border-radius: 20px;
-    // border: 1px solid #d8d7d7;
     background-color: transparent;
     color: black;
     text-decoration: none;
   }
 
-  // .uploadicons:hover {
-  //   background-color: antiquewhite;
-  //   outline: antiquewhite 
-  // }
   .uploadicons:focus {
     box-shadow: none;
   }
-
 
   .sendBtnDm {
     border: none;
@@ -103,7 +114,14 @@
 
   .messageBody {
     padding: 10px;
-    padding-top: 0;
+
+    .messageBody::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  &::-webkit-scrollbar {
+    display: none;
   }
 
   .dmText {
@@ -121,11 +139,6 @@
     line-height: 20px;
   }
 
-  // .dmText[contenteditable]:empty::before {
-  //   content: "Placeholder still possible";
-  //   color: gray;
-  // }
-
   .dmText:focus {
     background: #020024 !important;
     color: #dadada;
@@ -133,13 +146,32 @@
     box-shadow: none;
   }
 
+  .start-conversation {
+    background: #f91880;
+    border-radius: 30px;
+    border: none;
+    padding: 5px 10px;
+    color: #000;
+
+    &:hover {
+      background: #e41575;
+    }
+
+    &:focus {
+      box-shadow: none;
+      outline: none;
+    }
+
+    &:active {
+      background: #e41575;
+    }
+  }
 
   .listofDM {
     height: 342px;
     overflow-y: scroll;
-    // padding: 12px;
     background: transparent !important;
-    border-top: 1px solid #24224a;
+    border-top: 1px solid #ffd1c5 !important;
     border: none !important;
   }
 
@@ -166,20 +198,23 @@
   .conversations {
     align-items: flex-end;
     padding: 12px;
+
     .convoNfc {
       position: relative;
     }
-    .btnXX {
+
+    .notification-btn {
       border-radius: 50px;
       border: none;
       padding: 5px;
       width: 22px;
       height: 22px;
-      background-color: #24224a;
+      background: #f91880;
       margin-left: 10px;
       margin-top: -9px;
       box-shadow: 0px 0px 2px #d8d7d7;
-      color: #dadada !important;
+      color: #000 !important;
+
       span {
         display: block;
         margin-top: -5px;
@@ -240,7 +275,6 @@
     padding-top: 10px;
     padding-bottom: 10px;
     padding: 11px;
-    
   }
 
   .dmHeader:hover {
@@ -250,8 +284,11 @@
   .customDmBody {
     height: 64vh;
     overflow-y: scroll;
-  }
 
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
 
   .customSetDrop:focus-within {
     background-color: transparent !important;
@@ -287,8 +324,6 @@
     box-shadow: none;
   }
 
-
-
   .customSetDm:focus-visible {
     border-radius: 50px;
     background-color: antiquewhite;
@@ -300,7 +335,6 @@
   .customSetDm:focus-within {
     border-radius: 50px;
     background-color: antiquewhite;
-    ;
     border: none;
     outline: none;
     box-shadow: none;
@@ -311,10 +345,9 @@
     justify-content: center;
   }
 
-
   #input-container {
     position: relative;
-    border-bottom: 1px solid #24224a;
+    border-bottom: 1px solid #ffd1c5;
   }
 
   #textArea-container {
@@ -355,34 +388,20 @@
     z-index: 11;
   }
 
-
-
-
-  // .customRowDm {
-  //   border-top: 1px solid rgb(226, 226, 226);
-  //   border-right: 1px solid rgb(226, 226, 226);
-  //   border-left: 1px solid rgb(226, 226, 226);
-  //   border-top-left-radius: 20px;
-  //   border-top-right-radius: 20px;
-  //   background-color: white;
-  // }
-
   .dmBubble {
-    border: 1px solid #24224a !important;
+    border: 1px solid #ffd1c5 !important;
     border-radius: 20px !important;
     padding: 10px;
     max-width: 263px;
     word-wrap: break-word;
-
   }
 
   .dmBubble1 {
-    background: #24224a !important;
+    background: #ffd1c5 !important;
     border-radius: 20px !important;
     padding: 10px;
     max-width: 263px;
     word-wrap: break-word;
-
   }
 
   .h1 {
@@ -421,7 +440,7 @@
     padding: 0 !important;
     border: none !important;
     background: transparent !important;
-    color: #dadada !important;
+    color: #000 !important;
     max-height: 60px !important;
   }
 
@@ -431,11 +450,9 @@
     color: #dadada !important;
   }
 
-
   #onlineUserContainer {
     padding: 12px;
-    border-bottom: 1px solid #24224a;
-    // background: #24224a;
+    border-bottom: 1px solid #ffd1c5;
 
     .username {
       font-weight: 300;
@@ -465,6 +482,7 @@
   #convo {
     padding: 12px;
     border: none;
+    background: #ffd1c5;
 
     .textHolder {
       .msgtext {
@@ -492,5 +510,98 @@
       border: 1px solid #24224a;
       border-radius: 50%;
     }
+  }
+}
+
+#new-conversation-modal {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 0);
+  border-radius: 20px;
+  width: auto;
+
+  .modal-header {
+    border-bottom: 1px solid #ffd1c5;
+    color: #000;
+  }
+
+  .modal-content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    pointer-events: auto;
+    background: #f9ead7;
+    background-clip: padding-box;
+    border: 1px solid #ffd1c5;
+    border-radius: 20px;
+    width: 532px;
+    height: 532px;
+    max-height: 600px !important;
+    color: #000;
+  }
+
+  .modalbtn {
+    border-radius: 25px;
+    width: 230px;
+    height: 42px;
+  }
+
+  .modalbtn:active {
+    border: none;
+    box-shadow: none;
+    outline: none;
+  }
+
+  .modalbtn:focus {
+    border: none;
+    box-shadow: none;
+    outline: none;
+  }
+
+  .modalbtn-cancel {
+    border-radius: 25px;
+    width: 230px;
+    height: 42px;
+    background: #fae2c4de;
+    color: black;
+    border: 1px solid #ffd1c5;
+
+    &:hover {
+      background: #fae2c4;
+    }
+  }
+
+  .modal-footer {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem;
+    padding-top: 0;
+    border-top: none;
+    border-bottom-right-radius: calc(0.3rem - 1px);
+    border-bottom-left-radius: calc(0.3rem - 1px);
+  }
+
+  .modal-btn {
+    border-radius: 20px;
+    border: none;
+    color: white;
+    background-color: #f91880;
+  }
+
+  .modal-btn:hover {
+    background-color: #e41575;
+  }
+
+  .modal-btn:focus {
+    box-shadow: none;
+  }
+
+  .modal-title {
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 28px;
+    margin-bottom: 0;
   }
 }

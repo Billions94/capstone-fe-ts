@@ -1,3 +1,13 @@
+@keyframes FadeIn {
+  from {
+    margin-top: -100;
+  }
+
+  to {
+    margin-top: 0;
+  }
+}
+
 .blog-main-title {
   font-size: 3rem;
   font-weight: bold;
@@ -7,27 +17,6 @@
 
 .customInputDiv {
   padding: 0;
-}
-
-.customInput {
-  border-radius: 50px !important;
-  padding-left: 15px;
-  color: #dadada;
-  border: none;
-  background: #24224a;
-}
-
-.customInput:focus {
-  box-shadow: none;
-  outline: 1px solid #f91880;
-  background: #24224a;
-  color: #dadada;
-  border-color: rgb(216, 215, 215);
-}
-.customInput:active {
-  box-shadow: none;
-  outline: none;
-  border-color: rgb(216, 215, 215);
 }
 
 @import url('https://fonts.googleapis.com/css?family=Montserrat:400,700,900&display=swap');
@@ -109,18 +98,6 @@
 .weather-side:hover {
   -webkit-transform: scale(1.1) perspective(1500px) rotateY(10deg);
   transform: scale(1.1) perspective(1500px) rotateY(10deg);
-}
-
-.weather-gradient {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  background: #24224a;
-  /* background-image: var(--gradient); */
-  border-radius: 25px;
-  opacity: 0.8;
 }
 
 .date-container1 {
@@ -348,136 +325,7 @@
   margin-right: 5px;
 }
 
-#hotposts {
-  border-radius: 20px;
-  padding: 0;
-  background: #24224a;
-  color: #dadada;
-  .loader {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 100px;
-    .spinner {
-      // width: 40px;
-      // height: 40px;
-      text-align: center;
-      // margin-top: 100px;
-      color: #f91880;
-      z-index: 11;
-      padding: 10px;
-    }
-  }
-
-  .hotpostList {
-    cursor: pointer;
-    padding: 15px 15px;
-  }
-
-  .hotpostList:hover {
-    cursor: pointer;
-    background-color: #2c295c;
-  }
-
-  .index {
-    margin-top: -15px;
-    font-size: 13px;
-    font-weight: 500;
-    line-height: 16px;
-  }
-
-  .strong {
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
-    font-weight: 700;
-    font-size: 15px;
-    line-height: 20px;
-  }
-
-  .likes {
-    margin-top: -15px;
-    font-size: 13px;
-    font-weight: 500;
-    line-height: 16px;
-  }
-
-  .badge {
-    display: inline-block;
-    padding: 0.35em 0.65em;
-    font-size: 0.75em;
-    font-weight: 700;
-    line-height: 1;
-    color: #fff;
-    text-align: start;
-    margin-left: -5px;
-    white-space: nowrap;
-    vertical-align: baseline;
-    border-radius: 1.25rem;
-  }
-
-  .seeMore {
-    font-weight: 400;
-    font-size: 15px;
-    line-height: 20px;
-    color: #f91880;
-  }
-
-  // .seeMore:hover {
-  //   cursor: pointer;
-  //   color: black !important;
-  // }
-  .seeMoreDiv {
-    padding: 15px 15px;
-    border-bottom-left-radius: 20px;
-    border-bottom-right-radius: 20px;
-  }
-
-  .seeMoreDiv:hover {
-    cursor: pointer;
-    background-color: #2c295c;
-    border-bottom-left-radius: 20px;
-    border-bottom-right-radius: 20px;
-  }
-
-  .seeMoreDiv:hover .seeMore {
-    cursor: pointer;
-  }
-
-  .footer {
-    position: relative;
-    bottom: 0;
-  }
-}
-
 #mainContainer {
-  .sidebar {
-    padding: 12px 0;
-    max-height: auto;
-    overflow-x: scroll;
-    // box-shadow: -20px 1px 5px #d8d7d7;
-    border-left: 2px solid #24224a;
-    .sidebarFont {
-      font-weight: 600;
-      font-size: 14px;
-      line-height: 20px;
-      color: #dadada !important;
-    }
-  }
-
-  .textarea {
-    border: none;
-    resize: none;
-    background: transparent;
-  }
-
-  .textarea:focus {
-    box-shadow: none;
-    outline: none;
-    border: none;
-    background: #020024;
-    color: white;
-  }
   .feed {
     display: flex;
     justify-content: center;
@@ -496,15 +344,14 @@
 }
 
 #Row {
-  // border-bottom: 1px solid rgb(216, 215, 215);
+  background: antiquewhite;
+  padding: 25px 10px;
+  border-radius: 30px;
+  margin-bottom: 30px !important;
+
   .postContainer {
     display: flex;
     border: none;
-    // padding: 12px;
-
-    // .userImage{
-    //   cursor: pointer;
-    // }
 
     .disabled1 {
       background-color: rgb(192, 192, 192);
@@ -544,7 +391,7 @@
     }
 
     .textareaborder {
-      border-bottom: 2px solid #24224a;
+      border-bottom: 0px solid #24224a;
     }
 
     .relative {
@@ -564,12 +411,13 @@
       font-size: 12px !important;
       line-height: 14px !important;
     }
+
     .btnIcon {
       border-radius: 50px;
-    }
 
-    .btnIcon:hover {
-      background: #24224a;
+      &:hover {
+        background: #ffd1c5;
+      }
     }
   }
 }
@@ -577,17 +425,13 @@
 #blogList {
   .col {
     margin-bottom: 50px !important;
-    // border-top: 1px solid rgb(216, 215, 215) !important;
   }
+
   .blogList {
     padding: 0 0 0px 0;
-    border-top: 2px solid #24224a !important;
     border: none;
   }
-  // .blogList:hover {
-  //   cursor: pointer;
-  //   background-color: rgb(245, 245, 245);
-  // }
+
   .loader {
     display: flex;
     justify-content: center;
@@ -595,26 +439,29 @@
   }
 
   .blog-card {
-    border-radius: none;
-    border: none !important;
+    border-radius: 14px;
+    color: #242249;
+    margin-bottom: 60px;
   }
 }
 
 #Task {
   position: relative;
+  animation: FadeIn 0.4s linear;
+  transition: 0.4s;
 
   .taskList {
     border-radius: 20px;
     resize: none;
     border: none;
     background: #24224a;
-    color: #dadada;
+    color: #000;
     padding: 10px;
 
     &.taskList:focus {
       outline: 1px solid #f91880;
       box-shadow: none;
-      color: #dadada;
+      color: #000;
       border-color: rgb(216, 215, 215);
     }
 

@@ -1,21 +1,20 @@
 import React from 'react';
+import EditNewUser from './components/auth/EditNewUser';
 import LogIn from './components/auth/LogIn';
-import Home from './components/Home/Home';
 import Register from './components/auth/Register';
-import BeforeLogin from './components/welcomePage/WelcomePage';
+import { VerifyAccount } from './components/auth/VerifyAccount';
+import Home from './components/Home/Home';
 import Messages from './components/messages/Messages';
-import UserProfile from './components/user/profile/UserProfile';
 import Edit from './components/post/crud/EditPost';
-import Followers from './components/user/followers/Followers';
 import CloseAccount from './components/user/account/CloseAccount';
 import Settings from './components/user/account/Settings';
-import EditNewUser from './components/auth/EditNewUser';
-import { VerifyAccount } from './components/auth/VerifyAccount';
+import Followers from './components/user/followers/Followers';
+import UserProfile from './components/user/profile/UserProfile';
+import BeforeLogin from './components/welcomePage/WelcomePage';
 
 export const AppRoutes: Array<[string, React.FC]> = [
   ['login', LogIn],
   ['home', Home],
-  ['posts/:id', Home],
   ['register', Register],
   ['/', BeforeLogin],
   ['messages', Messages],

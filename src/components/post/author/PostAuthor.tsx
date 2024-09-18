@@ -53,7 +53,7 @@ const PostAuthor: React.FC<UserProps> = (userProps) => {
               <h6 className="text-muted postTime">
                 ●{' '}
                 {userProps.sharedPost
-                  ? 're-shared'
+                  ? 'reposted'
                   : userProps.isUpdated && 'edited'}{' '}
                 {dateFormatter(userProps.createdAt as Date)} ago
               </h6>

@@ -64,18 +64,18 @@ const CloseAccount = () => {
     <Row id="closeAccount" className="justify-content-center mt-5">
       <>
         {user ? (
-          <Col xs={4} sm={4} md={7}>
+          <Col style={{ marginTop: '50px' }} xs={4} sm={4} md={7}>
             <div className="mt-5">
-              <h4 className="text-white">
+              <h4 className="text-dark">
                 {user.firstName} {user.lastName}, we are sorry to see you leave
                 😔
               </h4>
-              <p className="text-white">
+              <p className="text-dark">
                 are you sure you want to close your Account ?
               </p>
             </div>
             <div className="mt-5">
-              <h5 className="text-white">
+              <h5 className="text-dark">
                 tell us why you are closing your account:
               </h5>
               <Form className="mt-3">

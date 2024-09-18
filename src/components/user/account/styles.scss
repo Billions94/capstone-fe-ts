@@ -1,233 +1,252 @@
 #accordion {
-    .card {
-        border: none;
-        background: transparent;
-    }
-    .card>.card-header {
-        border-radius: 0;
-        margin-bottom: -1px;
-        background-color: transparent;
-        padding: 0px;
-    }
-    .card-body {
-        padding: 10px 0px;
-    }
-    .btn-link {
-        font-weight: 400;
-        color: black;
-        text-decoration: none;
-        width: 100%;
-        padding: 15px;
-        box-shadow: none;
-        outline: none;
-        border: none;
-    }
-    .btn-link:hover {
-        font-weight: 400;
-        color: black;
-        text-decoration: none;
-        
-    }
-    .btn-link:focus {
-        box-shadow: none;
-        outline: none;
-        border: none;
-        text-decoration: none; 
-    }
-    .btn-link:focus-within {
-        box-shadow: none;
-        outline: none;
-        border: none;
-        text-decoration: none; 
-    }
-    .btn-link:focus-visible {
-        box-shadow: none;
-        outline: none;
-        border: none;
-        text-decoration: none; 
-    }
+  .card {
+    border: none;
+    background: transparent;
+  }
+  .card > .card-header {
+    border-radius: 0;
+    margin-bottom: -1px;
+    background-color: transparent;
+    padding: 0px;
+  }
+  .card-body {
+    padding: 10px 0px;
+  }
+  .btn-link {
+    font-weight: 400;
+    color: black;
+    text-decoration: none;
+    width: 100%;
+    padding: 15px;
+    box-shadow: none;
+    outline: none;
+    border: none;
+  }
+  .btn-link:hover {
+    font-weight: 400;
+    color: black;
+    text-decoration: none;
+  }
+  .btn-link:focus {
+    box-shadow: none;
+    outline: none;
+    border: none;
+    text-decoration: none;
+  }
+  .btn-link:focus-within {
+    box-shadow: none;
+    outline: none;
+    border: none;
+    text-decoration: none;
+  }
+  .btn-link:focus-visible {
+    box-shadow: none;
+    outline: none;
+    border: none;
+    text-decoration: none;
+  }
 
-    .listGroupLinks {
-        cursor: pointer;
-    }
+  .listGroupLinks {
+    cursor: pointer;
+  }
 
-    .customSetHeaders {
-        font-weight: 500;
-        font-size: 18px;
-        line-height: 20px;
-    }
-    h5 {
-        color: #dadada;
-        font-weight: 500;
-        font-size: 18px;
-        line-height: 20px;
-    }
+  .customSetHeaders {
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 20px;
+  }
+  h5 {
+    color: #dadada;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 20px;
+  }
 
-    .form-control {
-        border: 1px solid #6e767d;
-        background: #020024;
-    }
-    
-    .form-control:focus {
-        background: #020024;
-        color: #dadada;
-        border: 2px solid #f91880;
-        box-shadow: none;
-    }
+  .form-control {
+    border: 1px solid #6e767d;
+    background: #020024;
+  }
+
+  .form-control:focus {
+    background: #020024;
+    color: #dadada;
+    border: 2px solid #f91880;
+    box-shadow: none;
+  }
 }
 
 #listGroup {
-    border-radius: none;
-    h5 {
-        color: #dadada;
-        font-weight: 500;
-        font-size: 18px;
-        line-height: 20px;
-    }
-    .list-group-item {
-        background: transparent;
-        border-top: 1px solid #24224a;
-        border-bottom: 1px solid #24224a;
-        border-radius: 0 !important;
-    }
-    .profileInfo {
-        border-top-left-radius: 10px;
-        border-top-right-radius: 10px;
-    }
-    .accountAccess {
-        // border-bottom-left-radius: 10px;
-        // border-bottom-right-radius: 10px;
-        border-radius: 0;
-    }
-    .a-links {
-        text-decoration: none;
-        color: black;
-        cursor: pointer;
-    }
-    .a-links:hover {
-        text-decoration: none;
-        color: black;
-    }
-    .customh3 {
-        font-weight: 500;
-        font-size: 25px;
-        line-height: 40px;
-        color: #dadada;
-    }
-    .customListItem {
-        border-top: none;
-    }
+  border-radius: none;
+  h5 {
+    color: #dadada;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 20px;
+  }
+  .list-group-item {
+    background: transparent;
+    border-top: 1px solid #ffd1c5;
+    border-bottom: 1px solid #ffd1c5;
+    border-radius: 0 !important;
+  }
+  .profileInfo {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+  }
+  .accountAccess {
+    border-radius: 0;
+  }
+
+  .a-links {
+    text-decoration: none;
+    color: black;
+    cursor: pointer;
+  }
+
+  .a-links:hover {
+    text-decoration: none;
+    color: black;
+  }
+
+  .customListItem {
+    border-top: none;
+  }
 }
 
 #closeAccount {
-    .submitBtn {
-        border-radius: 20px;
-        background-color: transparent;
-        background-color: #f91880;
-        border: none;
-        color: white;
-        outline: none;
-        box-shadow: none;
-    }
-    .submitBtn:hover {
-       background-color: #e41575;
-    }
-    .submitBtn:focus {
-        box-shadow: none;
+  .submitBtn {
+    border-radius: 20px;
+    background-color: transparent;
+    background-color: #f91880;
+    border: none;
+    color: #000;
+    outline: none;
+    box-shadow: none;
+
+    &:hover {
+      background-color: #e41575;
     }
 
-    .form-control {
-        border: 1px solid #6e767d;
-        background: #020024;
+    &:focus {
+      box-shadow: none;
     }
-    
-    .form-control:focus {
-        background: #020024;
-        color: #dadada;
-        border: 2px solid #f91880;
-        box-shadow: none;
-    }
+  }
+
+  .form-control {
+    border: 1px solid #6e767d;
+    background: #020024;
+  }
+
+  .form-control:focus {
+    background: #020024;
+    color: #dadada;
+    border: 2px solid #f91880;
+    box-shadow: none;
+  }
 }
 
 #form {
-    color: #dadada;
-    .save-btn {
-        border-radius: 20px;
-        border: 1px solid black;
-        background-color: rgb(238, 238, 238);
-        color: black;
-        padding: 6px 15px;
+  .save-btn {
+    border-radius: 20px;
+    border: 1px solid #ffd1c5;
+    background: #f91880;
+    color: black;
+    padding: 6px 15px;
+  }
+
+  .save-btn:hover {
+    background-color: #e41575;
+  }
+
+  .form-control-custom {
+    width: 60%;
+    border-radius: 50px;
+    background: #ffd1c5 !important;
+    border: 1px solid #585858;
+
+    &:focus {
+      color: #000;
     }
-    .save-btn:hover {
-        background-color: #dadada;
-    }
-    .formgroup {
-        width: 60%;
-    }
+  }
 }
 
 .accountSett {
-    border-top-left-radius: 10px !important;
-    border-top-right-radius: 10px !important;
-    padding: 0 5px;
+  border-top-left-radius: 10px !important;
+  border-top-right-radius: 10px !important;
+  padding: 0 5px;
 }
 .signInSecurity {
-    border-bottom-left-radius: 10px !important;
-    border-bottom-right-radius: 10px !important;
-    padding: 0 5px;
+  border-bottom-left-radius: 10px !important;
+  border-bottom-right-radius: 10px !important;
+  padding: 0 5px;
 }
 
 #overlay {
-    .customH5 {
-        font-family: 400;
-        font-size: 20px;
-        line-height: 25px;
-    }
-    .customSpan {
-        font-family: 400;
-        font-size: 14px;
-        line-height: 20px;
-    }
+  .customH5 {
+    font-family: 400;
+    font-size: 20px;
+    line-height: 25px;
+  }
+  .customSpan {
+    font-family: 400;
+    font-size: 14px;
+    line-height: 20px;
+  }
 }
 
 .overlay-btn {
-    background-color: transparent !important;
-    color: black;
-    border: none;
+  background-color: transparent !important;
+  color: black;
+  border: none;
 }
 .overlay-btn:hover {
-    background-color: transparent !important;
-    color: black;
-    border: none;
+  background-color: transparent !important;
+  color: black;
+  border: none;
 }
 .overlay-btn:active {
-    background-color: transparent !important;
-    color: black;
-    outline: none;
-    border: none;
-    box-shadow: none;
+  background-color: transparent !important;
+  color: black;
+  outline: none;
+  border: none;
+  box-shadow: none;
 }
 .overlay-btn:focus {
-    background-color: transparent !important;
-    color: black;
-    outline: none;
-    border: none;
-    box-shadow: none;
+  background-color: transparent !important;
+  color: black;
+  outline: none;
+  border: none;
+  box-shadow: none;
 }
 
 #passwordContainer {
-    .alert {
-        width: 60%
-    }
+  .alert {
+    width: 60%;
+  }
 }
 
+.settings {
+  border-left: 1px solid #ffd1c5;
+  border-right: 1px solid #ffd1c5;
+  padding: 0;
+  background: #f9ead7;
 
-.settingsCol {
-    border-left: 1px solid #24224a;
-    border-right: 1px solid #24224a;
-    padding: 30px 0;
-}
+  h5 {
+    color: #6c757d !important;
+    font-size: 16px !important;
+  }
 
-.change {
-    color: #dadada
+  .text-muted {
+    font-size: 13px;
+  }
+
+  .settings-header-font {
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 40px;
+  }
+  .change {
+    color: #6c757d;
+    font-size: 16px;
+  }
 }

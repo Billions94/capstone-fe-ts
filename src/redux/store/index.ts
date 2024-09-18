@@ -10,7 +10,7 @@ import { encryptTransform } from 'redux-persist-transform-encrypt';
 import storage from 'redux-persist/lib/storage/session';
 import thunk from 'redux-thunk';
 import { defaultCover } from '../../assets/icons';
-import { ReduxState, User } from '../interfaces';
+import { Post, ReduxState, User } from '../interfaces';
 import dataReducer from '../reducers/dataReducer';
 
 const allCompose =
@@ -24,11 +24,13 @@ export const initialState: ReduxState = {
     cover: defaultCover,
     following: false,
     hideMe: false,
+    hideActivityBar: false,
     likes: [],
     reroute: false,
     isLoading: true,
     notes: [],
     hideTask: false,
+    post: <Post>{},
     posts: [],
     postId: '',
     comments: [],

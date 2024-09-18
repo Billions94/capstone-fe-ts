@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react';
+import { FC, useEffect } from 'react';
 import { Button } from 'react-bootstrap';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { useDispatch, useSelector } from 'react-redux';
@@ -64,7 +64,7 @@ const UserInfo: FC<Props> = ({ show, userFromProps }) => {
         <div className="d-flex">
           <div
             id="userDetails"
-            onClick={() => navigate(`/userProfile/${userFromProps?.id}`)}
+            onClick={() => navigate(`/userProfile/${userFromProps?.userName}`)}
             style={{ cursor: 'pointer' }}
           >
             <LazyLoadImage
@@ -117,11 +117,11 @@ const UserInfo: FC<Props> = ({ show, userFromProps }) => {
             </div>
           )}
         </div>
-        <div>{userFromProps?.bio}</div>
-        <div className="followers1">
+        <div className="bio">{userFromProps?.bio}</div>
+        <div className="followers-user-info">
           {Number(userFromProps?.followers?.length) > 1 ? (
             <span
-              className="customLinks1"
+              className="followers-link"
               onClick={() => navigate(`/followers/${userFromProps?.id}`)}
             >
               {userFromProps?.followers?.length} followers
@@ -129,14 +129,14 @@ const UserInfo: FC<Props> = ({ show, userFromProps }) => {
           ) : null}
           {Number(userFromProps?.followers?.length) === 1 ? (
             <span
-              className="customLinks1"
+              className="followers-link"
               onClick={() => navigate(`/followers/${userFromProps?.id}`)}
             >
               {userFromProps?.followers?.length} follower
             </span>
           ) : null}
           {Number(userFromProps?.followers?.length) === 0 ? (
-            <span className="customLinks1">
+            <span className="followers-link">
               {userFromProps?.followers?.length} follower
             </span>
           ) : null}

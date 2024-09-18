@@ -1,7 +1,5 @@
 #loginContainer {
-  margin-top: 300px;
-  // background-image: url(https://pressbooks.ulib.csuohio.edu/bright-continent/wp-content/uploads/sites/21/2018/04/Four-heads-in-scale2-1024x717.jpg);
-  // background-size: contain ;
+  margin-top: 160px;
   height: 72vh;
 
   .blog-main-title {
@@ -16,7 +14,6 @@
     font-weight: 600;
     font-size: 37px;
     line-height: 20px;
-    color: #e5e5e5;
     font-family: 'JetBrains Mono NL', serif;
   }
 
@@ -37,11 +34,11 @@
   .customMT {
     margin-top: 50px;
     padding: 15px;
-    box-shadow: 0 0 20px #24224a;
+    box-shadow: 0 0 1px 0 #24224a;
     border-radius: 20px;
-    background: #020024;
+    background: #f9ead7;
     color: #e5e5e5;
-    border: 1px solid #24224a;
+
     a {
       text-decoration: none;
     }
@@ -53,12 +50,19 @@
     border-radius: 0;
     background-color: transparent !important;
 
+    &:focus {
+      color: #000;
+    }
+
+    &:active {
+      color: #000;
+    }
+
     &:-webkit-autofill,
     &:-webkit-autofill:hover,
     &:-webkit-autofill:focus,
     &:-webkit-autofill:active {
       transition: background-color 5000s ease-in-out 0s;
-      -webkit-text-fill-color: #fff !important;
     }
 
     &:focus {
@@ -90,12 +94,10 @@
 
   .form-control {
     border: 1px solid #6e767d;
-    color: #dadada;
   }
 
   .form-control:active {
     border: 1px solid #6e767d;
-    color: #dadada;
   }
 
   .format {
@@ -259,18 +261,6 @@
   .addPhoto {
     color: #dadada;
   }
-
-  .btnIcon {
-  }
-
-  .btnIcon:focus {
-    box-shadow: none;
-    outline: none;
-  }
-  .btnIcon:active {
-    box-shadow: none;
-    outline: none;
-  }
 }
 
 .disabled1 {
@@ -284,6 +274,10 @@
   border: none;
   color: white;
   background-color: #f91880;
+
+  &:disabled {
+    @extend .disabled1;
+  }
 }
 
 .modal-btn:hover {

@@ -1,6 +1,6 @@
 import { Avatar } from '@mui/material';
 import Picker from 'emoji-picker-react';
-import React, {
+import {
   createRef,
   Dispatch,
   KeyboardEvent,
@@ -80,7 +80,7 @@ const PostContainer = ({
           <div className="userImage">
             <Link
               style={{ textDecoration: 'none' }}
-              to={`/userProfile/${user.id}`}
+              to={`/userProfile/${user.userName}`}
             >
               {!user.image ? (
                 <Avatar

@@ -36,9 +36,9 @@ const ReplyComponent = ({ post, comment, commentID }: ReplyProps) => {
           className="d-flex"
           style={{ fontSize: '10px', marginTop: '5px' }}
         >
-          {replies?.map((reply, i) => (
+          {replies?.map((reply) => (
             <SingleReply
-              key={i}
+              key={reply.id}
               commentID={commentID}
               reply={reply}
               comment={comment}

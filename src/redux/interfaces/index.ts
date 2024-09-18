@@ -1,3 +1,5 @@
+import { OnlineUser } from 'src/interfaces/OnlineUser';
+
 export interface ReduxState {
   data: {
     user: User;
@@ -5,12 +7,14 @@ export interface ReduxState {
     cover: string;
     following: boolean;
     hideMe: boolean;
+    hideActivityBar: boolean;
     likes: User[];
     reroute: boolean;
     isLoading: boolean;
     notes: Note[];
     hideTask: boolean;
     dynamicId: string;
+    post: Post;
     posts: Post[];
     postId: string;
     comments: Comment[];
@@ -79,9 +83,9 @@ export interface Reply {
   createdAt: Date;
 }
 
-export interface Rooms {
+export interface Room {
   _id: string;
-  members: User[];
+  members: OnlineUser[];
 }
 
 export interface Message {

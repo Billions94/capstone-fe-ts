@@ -1,33 +1,35 @@
 .customFooter {
-    justify-content: center;
-    background-color: transparent;
-    // position: sticky
-    // padding-top: 5px;
-    // padding-bottom: 5px;
-    font-size: 13px;
-    padding: 0;
-  
-    /* margin-top: 61px; */
+  color: #dadada;
+  justify-content: center;
+  background-color: transparent;
+  font-size: 13px;
+  padding: 15px 0px;
+
+  .sticky {
+    background: #f9ead7;
+    border-radius: 30px;
+    padding: 12px 20px;
+  }
 }
 
 .followers {
-    position: fixed;
-    bottom: 0;
-    font-size: 13px;
-  
+  position: fixed;
+  bottom: 0;
+  font-size: 13px;
 }
 
 .textColor {
-    color: #dadada;
+  color: #000;
+  h5 {
+    color: #e31574 !important;
+  }
 }
 
 .customSel {
-    border-radius: 20px;
-    width: 170px;
+  border-radius: 20px;
+  width: 170px;
 }
 
 .customSel:focus {
-    outline: none;
+  outline: none;
 }
-
-

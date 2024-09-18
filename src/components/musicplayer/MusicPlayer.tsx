@@ -76,7 +76,7 @@ export default function MusicPlayer() {
             <div className="mappedMusic">
               {music &&
                 music.slice(0, 10).map((song: any, index: number) => (
-                  <div className="relative">
+                  <div key={song?.id} className="relative">
                     {/* <SingleSong song={song} index={index} /> */}
                     <div
                       onClick={() => togglePlay(index)}

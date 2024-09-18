@@ -2,10 +2,11 @@ import { Avatar } from '@mui/material';
 import React, { useEffect } from 'react';
 import { Dropdown, Image } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
-import { getUser } from 'src/lib/requests/user';
-import { setUserAction } from 'src/redux/actions';
 import { useReroute } from '../../../components/hooks/useReroute';
+import { useSocket } from '../../../components/hooks/useSocket';
 import { NewUserAvatar } from '../../../dummy/NewUserAvatar';
+import { getUser } from '../../../lib/requests/user';
+import { setUserAction } from '../../../redux/actions';
 import { User } from '../../../redux/interfaces';
 import {
   appendIdToUrl,
@@ -22,6 +23,7 @@ interface NavBarDropdownProps {
   flag: boolean;
   userId: string;
   user?: User;
+  isScrolled?: boolean;
 }
 
 export const NavBarDropdown: React.FC<
@@ -41,10 +43,12 @@ export const NavBarDropdown: React.FC<
     },
     flag,
     user,
+    isScrolled,
   } = { ...props } as NavbarProp & NavBarDropdownProps;
 
   const dispatch = useDispatch();
   const { route } = useReroute();
+  const { socket } = useSocket();
 
   const avatarStyle: { [key: string]: string } = {
     top: sx(String(avatar?.sx.src), flag).top,
@@ -114,7 +118,7 @@ export const NavBarDropdown: React.FC<
             </Dropdown.Toggle>
           </>
         )}
-        <Dropdown.Menu style={dropDownMenuStyle}>
+        <Dropdown.Menu className="dropDownMenu" style={dropDownMenuStyle}>
           {getOrder(
             String(name),
             getNavbarIcons(user, navigate, logOut),
@@ -126,7 +130,7 @@ export const NavBarDropdown: React.FC<
               }}
               key={key.name}
               className={linkClassName}
-              onClick={() =>
+              onClick={() => {
                 key.name === 'logout'
                   ? key.logOut && key.logOut()
                   : key.name === 'home'
@@ -136,8 +140,9 @@ export const NavBarDropdown: React.FC<
                       isDynamicUserRoute(user as User)
                         ? appendIdToUrl(key.url, user?.userName as string)
                         : String(key.url)
-                    )
-              }
+                    );
+                //path !== '/messages' && socket.disconnect();
+              }}
             >
               <div className="d-flex">
                 <div className="mr-3">

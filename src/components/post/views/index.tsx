@@ -16,7 +16,7 @@ interface PostLayoutProps {
 
 export const PostLayout: React.FC<
   React.PropsWithChildren<unknown> & PostLayoutProps
-> = ({ children, post, view, setView, likeShow, setLikeShow }) => {
+> = ({ children, post, view, setView }) => {
   const {
     data: { user, posts },
   } = useSelector(GET_STORE);
@@ -41,7 +41,10 @@ export const PostLayout: React.FC<
         />
         <div className="d-flex justify-content-evenly"></div>
 
-        <InteractionButtons {...{ me: user.id, post, className: 'spacing' }} />
+        <InteractionButtons
+          key={newPost?.likes.length}
+          {...{ me: user.id, post, className: 'spacing' }}
+        />
       </div>
     </React.Fragment>
   );

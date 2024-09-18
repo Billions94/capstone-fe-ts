@@ -378,12 +378,10 @@
     position: relative;
     display: flex;
     flex-direction: column;
-    width: 100%;
-    height: 270px;
     pointer-events: auto;
-    background: #020024;
+    background: #fae2c4;
     background-clip: padding-box;
-    border: 1px solid #24224a;
+    border: 1px solid #ffd1c5;
     border-radius: 20px;
     width: 532px;
     height: 532px;
@@ -412,13 +410,13 @@
     border-radius: 25px;
     width: 230px;
     height: 42px;
-    background-color: white;
+    background: #fae2c4de;
     color: black;
-    border: 1px solid rgb(216, 215, 215);
-  }
+    border: 1px solid #ffd1c5;
 
-  .modalbtn-cancel:hover {
-    background-color: rgb(241, 241, 241);
+    &:hover {
+      background: #fae2c4;
+    }
   }
 
   .modal-footer {
@@ -454,83 +452,84 @@
     line-height: 28px;
     margin-bottom: 0;
   }
-  #searchContainer {
-    .profile-pic {
-      border-radius: 50%;
-      width: 50px;
-      height: 50px;
-    }
-    .firstandlastname {
-      font-weight: 600;
-      font-size: 14px;
-      line-height: 8px;
-      color: #dadada;
-    }
-    .username {
-      font-weight: 500;
-      font-size: 13px;
-      line-height: 10px;
-    }
-    .bio {
-      font-weight: 500;
-      font-size: 13px;
-      line-height: 10px;
-      color: #dadada;
-    }
-    .linkToProfile {
-      display: flex;
-      cursor: pointer;
-    }
-    .followbtn {
-      border-radius: 20px;
-      border: 1px solid grey;
-      color: black;
-      background-color: white;
-      box-shadow: 5px 5px 1px black;
-    }
+}
 
-    .followbtn:hover {
-      border-radius: 20px;
-      color: black;
-      background-color: #dadada;
-    }
+#searchContainer {
+  .profile-pic {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+  }
+  .firstandlastname {
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 8px;
+    color: #dadada;
+  }
+  .username {
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 10px;
+  }
+  .bio {
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 10px;
+    color: #dadada;
+  }
+  .linkToProfile {
+    display: flex;
+    cursor: pointer;
+  }
+  .followbtn {
+    border-radius: 20px;
+    border: 1px solid grey;
+    color: black;
+    background-color: white;
+    box-shadow: 5px 5px 1px black;
+  }
 
-    .followbtn:active {
-      outline: none;
-      box-shadow: 5px 5px 1px black;
-    }
+  .followbtn:hover {
+    border-radius: 20px;
+    color: black;
+    background-color: #dadada;
+  }
 
-    .followbtn:focus {
-      outline: none;
-      box-shadow: 5px 5px 1px black;
-    }
+  .followbtn:active {
+    outline: none;
+    box-shadow: 5px 5px 1px black;
+  }
 
-    .followbtn:focus-visible {
-      outline: none;
-      box-shadow: none;
-    }
+  .followbtn:focus {
+    outline: none;
+    box-shadow: 5px 5px 1px black;
+  }
 
-    .nowfollowing {
-      border-radius: 20px !important;
-      background-color: #f91880 !important;
-      border: 1px solid #f91880 !important;
-      box-shadow: 5px 5px 1px black !important;
-    }
+  .followbtn:focus-visible {
+    outline: none;
+    box-shadow: none;
+  }
 
-    .nowfollowing:active {
-      outline: none;
-      box-shadow: 5px 5px 1px black;
-    }
+  .nowfollowing {
+    border-radius: 20px !important;
+    background-color: #f91880 !important;
+    border: 1px solid #f91880 !important;
+    box-shadow: 5px 5px 1px black !important;
+  }
 
-    .nowfollowing:focus {
-      outline: none;
-      box-shadow: 5px 5px 1px black;
-    }
+  .nowfollowing:active {
+    outline: none;
+    box-shadow: 5px 5px 1px black;
+  }
 
-    .nowfollowing:focus-visible {
-      outline: none;
-      box-shadow: none;
-    }
+  .nowfollowing:focus {
+    outline: none;
+    box-shadow: 5px 5px 1px black;
+  }
+
+  .nowfollowing:focus-visible {
+    outline: none;
+    box-shadow: none;
   }
 }
 
@@ -543,4 +542,12 @@
 .singleImage {
   position: relative;
   padding-left: 15px;
+}
+
+#new-conversation-modal {
+  @extend #likesModal;
+
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 0);
 }

@@ -85,7 +85,12 @@ const Register: React.FC = () => {
             </Form.Group>
           ))}
 
-          <Button variant="primary" className="modal-btn" type="submit">
+          <Button
+            variant="primary"
+            disabled={input.confirmPassword.trim().length < 5}
+            className={'modal-btn'}
+            type="submit"
+          >
             <span>Register</span>
           </Button>
           <Form.Text>

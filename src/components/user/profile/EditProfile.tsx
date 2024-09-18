@@ -1,4 +1,4 @@
-import React, { Dispatch, FC, SetStateAction } from 'react';
+import { Dispatch, FC, SetStateAction } from 'react';
 import { Button, Form, Modal } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import API from '../../../lib/API';
@@ -56,11 +56,13 @@ const EditProfile: FC<Props> = ({ show, setShow }: Props) => {
           <Form id="form">
             {Object.keys(input).map((key) => (
               <Form.Group controlId="blog-form" key={key} className="mt-3">
-                <Form.Label className="label">{key.toLowerCase()}</Form.Label>
+                <Form.Label className="label text-dark">
+                  {key.toLowerCase()}
+                </Form.Label>
                 <Form.Control
                   id="control"
                   size="lg"
-                  className="text-white"
+                  className="text-dark form-control-user-update"
                   name={key}
                   value={(input as any)[key]}
                   onChange={handleChange}
@@ -69,7 +71,7 @@ const EditProfile: FC<Props> = ({ show, setShow }: Props) => {
             ))}
           </Form>
         </Modal.Body>
-        <Modal.Footer>
+        <Modal.Footer className="d-flex">
           {!user.firstName &&
           !user.lastName &&
           !user.userName &&
@@ -81,7 +83,7 @@ const EditProfile: FC<Props> = ({ show, setShow }: Props) => {
           ) : (
             <Button
               size="lg"
-              className="modal-btn"
+              className="modal-btn ml-auto"
               variant="primary"
               onClick={edit}
             >

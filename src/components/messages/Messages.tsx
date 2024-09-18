@@ -1,84 +1,74 @@
 import { debounce } from 'lodash';
-import React, {
+import {
   createRef,
   FormEvent,
   KeyboardEvent,
   useCallback,
   useEffect,
-  useMemo,
   useState,
 } from 'react';
-import {
-  Button,
-  Col,
-  Container,
-  Form,
-  Image,
-  ListGroup,
-  Row,
-} from 'react-bootstrap';
+import { Button, Col, Container, ListGroup, Row } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
-import { io } from 'socket.io-client';
-import { conversationGif, isTypingGif } from '../../assets/icons';
+import { conversationGif } from '../../assets/icons';
 import { OnlineUser } from '../../interfaces/OnlineUser';
 import API from '../../lib/API';
 import useAuthGuard from '../../lib/index';
 import { setDynamicId } from '../../redux/actions';
-import { Message, ReduxState, Rooms } from '../../redux/interfaces';
+import { Message, ReduxState, Room } from '../../redux/interfaces';
+import { useSocket } from '../hooks/useSocket';
 import Convo, { DeleteConversations } from './Conversation';
-import { MessageBody } from './MessageBody';
+import { DirectMessage } from './DirectMessage';
 import OnlineUsers from './OnlineUsers';
 import { StartConversation } from './StartConversation';
 import './styles.scss';
-
-const ioAddress = String(process.env.REACT_APP_IO_URL);
 
 const Messages = () => {
   useAuthGuard();
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { id } = useParams();
+  const messageId = useParams().id;
+
+  const { socket } = useSocket();
 
   const { user } = useSelector((state: ReduxState) => state.data);
   const me = user?.id;
   const [notification, setNotification] = useState<boolean>(false);
 
-  const [username, setUsername] = useState<string>('');
   const [media, setMedia] = useState<string>('');
   const [isTyping, setIsTyping] = useState(false);
 
   const [onlineUsers, setOnlineUsers] = useState<OnlineUser[]>([]);
   const [message, setMessage] = useState('');
-  const [currentChat, setCurrentChat] = useState<Rooms | null>(null);
+  const [currentChat, setCurrentChat] = useState<Room | null>(null);
 
   const [chatHistory, setChatHistory] = useState<Message[]>([]);
-  const [conversation, setConversation] = useState<Rooms[]>([
+  const [conversation, setConversation] = useState<Room[]>([
     { _id: '', members: [] },
   ]);
 
   const [arrivalMessage, setArrivalMessage] = useState<any | null>(null);
   const [selectedIndex, setSelectedIndex] = useState<number>();
   const scrollRef = createRef<HTMLDivElement>();
+  const isTypingRef = createRef<HTMLDivElement>();
 
   const [openConvo, setOpenConvo] = useState(false);
-
-  const socket = useMemo(() => {
-    return io(ioAddress, { transports: ['websocket'] });
-  }, []);
 
   const handleIsTyping = useCallback(
     debounce((value) => {
       setIsTyping(value);
-    }, 500),
+    }, 1000),
     []
   );
 
   const getConversation = async () => {
     try {
       const { data } = await API.get(`/rooms/${me}`);
-      return data;
+      if (data) {
+        setConversation(data.conversations);
+        return data;
+      }
     } catch (error) {
       console.log(error);
     }
@@ -100,27 +90,35 @@ const Messages = () => {
   };
 
   useEffect(() => {
-    dispatch(setDynamicId(id));
-  }, [id]);
+    dispatch(setDynamicId(messageId));
+  }, [messageId]);
 
   useEffect(() => {
-    getConversation().then(({ conversations }) =>
-      setConversation(conversations)
-    );
+    getConversation().then(({ conversations }) => {
+      setConversation(conversations);
+    });
   }, [me, conversation.length]);
+
+  function setUsers() {
+    socket.emit('getUsers', {
+      id: user.id,
+      userName: user.userName,
+      image: user.image,
+    });
+  }
 
   useEffect(() => {
     (async () => await getMessages())();
   }, [currentChat]);
 
   useEffect(() => {
-    // dispatch(getUsersAction());
-    setUsername(user?.userName);
-  }, [currentChat]);
-
-  useEffect(() => {
     socket.on('connect', () => {
       console.log('Connection established!');
+      setUsers();
+    });
+
+    socket.on('message', (message) => {
+      console.log({ message });
     });
 
     socket.on('getUsers', (users: OnlineUser[]) => {
@@ -142,7 +140,7 @@ const Messages = () => {
       handleIsTyping(false);
     });
 
-    socket.on('message', (newMessage) => {
+    socket.on('receiveMessage', (newMessage) => {
       setNotification(true);
       setArrivalMessage(newMessage.message);
       setChatHistory((chatHistory) => [...chatHistory, newMessage.message]);
@@ -150,10 +148,21 @@ const Messages = () => {
 
     return () => {
       socket.on('disconnect', () => {
-        (async () => await fetchOnlineUsers())();
+        console.log('Disconnected');
+        setUsers();
       });
       socket.disconnect();
     };
+  }, []);
+
+  console.log({ onlineUsers });
+
+  useEffect(() => {
+    socket.emit('setUsername', {
+      userId: user.id,
+      userName: user.userName,
+      image: user.image,
+    });
   }, []);
 
   useEffect(() => {
@@ -162,25 +171,16 @@ const Messages = () => {
       setChatHistory((prev) => [...prev, arrivalMessage]);
   }, [arrivalMessage, currentChat]);
 
-  useEffect(() => {
-    username &&
-      socket.emit('setUsername', {
-        userId: me,
-        userName: username,
-        image: user.image,
-      });
-  }, [username]);
-
   const handleMessageSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
-    const receiver = currentChat?.members.find((m) => m.id !== me);
+    const receiver = currentChat?.members.find((m) => m._id !== me);
 
     const newMessage: Message = {
       roomId: currentChat?._id,
       text: message,
       sender: me,
-      receiver: receiver?.id,
+      receiver: receiver?._id,
       image: user.image,
       media: media,
       createdAt: Date.now(),
@@ -200,17 +200,12 @@ const Messages = () => {
   };
 
   useEffect(() => {
-    (async () => await fetchOnlineUsers())();
     scrollRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [chatHistory]);
 
-  const fetchOnlineUsers = async () => {
-    try {
-      await API.get('/online-users');
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  useEffect(() => {
+    isTypingRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [isTyping]);
 
   const target = (e: any) => {
     if (e.target && e.target.files[0]) {
@@ -218,21 +213,16 @@ const Messages = () => {
     }
   };
 
-  const inputBtn = createRef<HTMLInputElement>();
-
-  const openInputFile = () => {
-    inputBtn?.current?.click();
-  };
-
-  // Getting the exact user to display their info on the message header
   const singleMsg = chatHistory?.find((m) => m.receiver === undefined);
   const actualRoom = conversation?.find((r) => r._id === singleMsg?.roomId);
-  const receiver = actualRoom?.members.find((m) => m.id !== me);
-  // Check the current User typing
+  const receiver = actualRoom?.members.find((m) => m._id !== me);
   const typer = chatHistory && chatHistory.find((m) => m.sender !== user?.id);
 
   const handleKeyboardEvent = async (e: KeyboardEvent<HTMLInputElement>) => {
-    socket.emit('typing');
+    setNotification(false);
+    socket.emit('typing', {
+      user: onlineUsers.find((u) => u._id === typer?.sender),
+    });
 
     if (e.key === 'Enter') {
       await handleMessageSubmit(e);
@@ -240,9 +230,13 @@ const Messages = () => {
   };
 
   return (
-    <Container fluid className="customRowDm p-0">
+    <Container
+      style={{ marginTop: '90px', overflow: 'hidden' }}
+      fluid
+      className="p-0"
+    >
       <Row id="dmContainer" className="mx-auto p-0 customDmRow">
-        <Col className="customCol1 ml-auto" sm={5} md={3} lg={3}>
+        <Col className="user-column-dm ml-auto" sm={5} md={3} lg={3}>
           <div className="d-flex customMess">
             <h3 className="dmUserName mt-2 ml-2">{user.userName}</h3>
           </div>
@@ -260,12 +254,18 @@ const Messages = () => {
             setOpenConvo={setOpenConvo}
           />
 
-          <div style={{ borderBottom: '1px solid #24224a' }}>
+          <div
+            style={{
+              borderBottom: '1px solid #ffd1c5',
+            }}
+          >
             <div className="conversations d-flex">
               <div className="convoNfc">
                 Conversations
-                <Button className="text-dark btnXX">
-                  <span>{conversation.length}</span>
+                <Button className="text-dark notification-btn">
+                  <span className="convo-notification">
+                    {conversation.length}
+                  </span>
                 </Button>
               </div>
               <div className="ml-auto">
@@ -283,6 +283,7 @@ const Messages = () => {
                     setSelectedIndex={setSelectedIndex}
                     index={i}
                     room={room}
+                    messageId={messageId}
                     currentUser={user}
                     onlineUsers={onlineUsers}
                     currentChat={currentChat}
@@ -290,6 +291,7 @@ const Messages = () => {
                     setCurrentChat={setCurrentChat}
                     notification={notification}
                     setOpenConvo={setOpenConvo}
+                    getConversation={getConversation}
                   />
                   <div
                     style={{
@@ -300,6 +302,7 @@ const Messages = () => {
                     }}
                   >
                     <DeleteConversations
+                      setOpenConvo={setOpenConvo}
                       convoId={room._id}
                       socket={socket}
                       conversation={conversation}
@@ -311,12 +314,12 @@ const Messages = () => {
           </ListGroup>
         </Col>
 
-        <Col className="mr-auto customCol2" sm={7} md={6} lg={5}>
+        <Col className="mr-auto dm-column" sm={7} md={6} lg={5}>
           {!receiver ? null : (
             <div className="dmHeader1 d-flex">
               <img
                 src={receiver?.image}
-                onClick={() => navigate(`/userProfile/${receiver.id}`)}
+                onClick={() => navigate(`/userProfile/${receiver._id}`)}
                 style={{ cursor: 'pointer' }}
                 className="roundpic"
                 alt=""
@@ -347,86 +350,24 @@ const Messages = () => {
               </div>
             </div>
           ) : (
-            <div className="messageBody">
-              <div className="customDmBody  pt-2">
-                {chatHistory.map((message, i) => (
-                  <div ref={scrollRef} key={message.image} className="d-flex">
-                    <MessageBody user={user} message={message} />
-                  </div>
-                ))}
-              </div>
-
-              {isTyping && (
-                <div className="mb-2 ml-2">
-                  <Image
-                    roundedCircle
-                    src={typer?.image}
-                    alt=""
-                    width="30px"
-                    height="30px"
-                  />
-                  <Image src={isTypingGif} alt="" width="50px" height="30px" />
-                </div>
-              )}
-
-              <div className="textAreaDm">
-                <div id="textArea-container" className="panel-body">
-                  <svg
-                    id="input-icon1"
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="10px"
-                    height="10px"
-                    fill="#f91880"
-                    className="bi bi-emoji-smile ml-2"
-                    viewBox="0 0 16 16"
-                  >
-                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
-                    <path d="M4.285 9.567a.5.5 0 0 1 .683.183A3.498 3.498 0 0 0 8 11.5a3.498 3.498 0 0 0 3.032-1.75.5.5 0 1 1 .866.5A4.498 4.498 0 0 1 8 12.5a4.498 4.498 0 0 1-3.898-2.25.5.5 0 0 1 .183-.683zM7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5zm4 0c0 .828-.448 1.5-1 1.5s-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5z" />
-                  </svg>
-
-                  <div>
-                    {!message ? (
-                      <div>
-                        <input
-                          type="file"
-                          ref={inputBtn}
-                          className="d-none"
-                          onChange={target}
-                        />
-                        <svg
-                          id="input-icon"
-                          onClick={openInputFile}
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="50px"
-                          height="18"
-                          fill="#f91880"
-                          className="bi bi-card-image btn btn-sm uploadicons"
-                          viewBox="0 0 16 16"
-                        >
-                          <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z" />
-                          <path d="M1.5 2A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13zm13 1a.5.5 0 0 1 .5.5v6l-3.775-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12v.54A.505.505 0 0 1 1 12.5v-9a.5.5 0 0 1 .5-.5h13z" />
-                        </svg>
-                      </div>
-                    ) : (
-                      <button
-                        className="btn ml-auto btn-sm sendBtnDm"
-                        onClick={(e) => handleMessageSubmit(e)}
-                      >
-                        <i className="fa fa-pencil fa-fw" /> send
-                      </button>
-                    )}
-                  </div>
-                  <Form.Control
-                    className="form-control dmText search"
-                    placeholder="Message..."
-                    value={message}
-                    onClick={() => setNotification(false)}
-                    onKeyPress={handleKeyboardEvent}
-                    onChange={(e) => setMessage(e.target.value)}
-                  />
-                </div>
-              </div>
-            </div>
+            <DirectMessage
+              {...{
+                user,
+                chatHistory,
+                message,
+                messageId,
+                isTyping,
+                isTypingRef,
+                scrollRef,
+                typer,
+                setMedia,
+                setMessage,
+                handleMessageSubmit,
+                target,
+                handleKeyboardEvent,
+                setNotification,
+              }}
+            />
           )}
         </Col>
       </Row>

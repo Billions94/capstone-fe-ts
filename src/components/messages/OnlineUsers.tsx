@@ -4,15 +4,15 @@ import { Socket } from 'socket.io-client';
 import { defaultAvatar } from '../../assets/icons';
 import { OnlineUser } from '../../interfaces/OnlineUser';
 import API from '../../lib/API';
-import { Rooms, User } from '../../redux/interfaces';
+import { Room, User } from '../../redux/interfaces';
 
 interface OnlineUsersProps {
   onlineUsers: OnlineUser[];
   currentUser: User;
-  conversation: Rooms[];
-  currentChat: Rooms | null;
-  setCurrentChat: (value: React.SetStateAction<Rooms | null>) => void;
-  setConversation: React.Dispatch<React.SetStateAction<Rooms[]>>;
+  conversation: Room[];
+  currentChat: Room | null;
+  setCurrentChat: (value: React.SetStateAction<Room | null>) => void;
+  setConversation: React.Dispatch<React.SetStateAction<Room[]>>;
   socket: Socket;
   setOpenConvo: React.Dispatch<React.SetStateAction<boolean>>;
 }
@@ -28,29 +28,30 @@ export default function OnlineUsers({
   setOpenConvo,
 }: OnlineUsersProps) {
   const handleClick = async (friend: OnlineUser) => {
-    if (!currentChat?.members.includes(currentUser)) {
-      // here we should check if there's already a conversation going with the selected guy
-      const conversationAlreadyOpened = conversation
-        ?.map((m) => m.members)
-        .flat(1)
-        .find((c) => c.id === friend.id);
+    if (!currentChat?.members.includes(currentUser as unknown as OnlineUser)) {
+      let conversationAlreadyOpened;
+
+      for (const room of conversation) {
+        conversationAlreadyOpened = room.members.find(
+          (member) => member.userName === friend.userName
+        );
+      }
+
       if (conversationAlreadyOpened) {
-        //we should here jump to the existing convo
         try {
-          const { data } = await API.get<Rooms[]>(
-            `/rooms/find/${currentUser.id}/${friend.id}`
+          const { data } = await API.get<Room[]>(
+            `/rooms/find/${currentUser.id}/${friend._id}`
           );
           if (data) {
-            const someDT = data[0];
-            console.log('handleClick', someDT);
-            setCurrentChat(someDT);
+            const room = data[0];
+            setCurrentChat(room);
             setOpenConvo(true);
           } else throw new Error('Could not get chat');
         } catch (error) {
           console.log(error);
         }
       } else {
-        newConversation(friend);
+        await newConversation(friend);
       }
     }
   };
@@ -59,11 +60,11 @@ export default function OnlineUsers({
     try {
       const { data } = await API.post('/rooms', {
         senderId: currentUser.id,
-        receiverId: friend.id,
+        receiverId: friend._id,
       });
       if (data) {
-        const newDT: Rooms = data[0];
-        setCurrentChat(newDT);
+        const room = data[0];
+        setCurrentChat(room);
         socket.emit('startConversation');
         setConversation((prev) => [...prev, data]);
       }
@@ -80,7 +81,7 @@ export default function OnlineUsers({
           .filter((user) => user.userName !== currentUser.userName)
           .map((friend) => (
             <div
-              key={friend.id}
+              key={friend.userName}
               className="mr-1"
               onClick={() => handleClick(friend)}
               style={{ cursor: 'pointer' }}

@@ -2,7 +2,7 @@ import React, { createRef, Dispatch, SetStateAction, useState } from 'react';
 import { Button, Form, Modal } from 'react-bootstrap';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { useDispatch, useSelector } from 'react-redux';
-import { apiUrl } from '../../../../lib/API';
+import API, { apiUrl } from '../../../../lib/API';
 import { ReduxState } from '../../../../redux/interfaces';
 
 interface Props {
@@ -45,25 +45,19 @@ const CommentModal: React.FC<Props> = ({ id, show, setShow }) => {
   const postComment = async () => {
     if (media) {
       try {
-        const response = await fetch(`${apiUrl}/comments/${id}`, {
-          method: 'POST',
-          body: JSON.stringify(comments),
-          headers: { 'Content-Type': 'application/json' },
-        });
-        if (response.ok) {
-          const data = await response.json();
+        const { data } = await API.post(`/comments/${id}`, comments);
 
+        if (data) {
           try {
-            const formDt = new FormData();
-            formDt.append('media', media);
-            const addMedia = await fetch(
-              `${apiUrl}/comments/${data.data.comments[0]._id}/upload`,
-              {
-                method: 'PATCH',
-                body: formDt,
-              }
+            const formData = new FormData();
+            formData.append('media', media);
+
+            const { data: mediaResponse } = await API.patch(
+              `/comments/${data.data.comments[0]._id}/upload`,
+              formData
             );
-            if (addMedia.ok) {
+
+            if (mediaResponse) {
               await fetchComments();
               setComments({
                 text: '',
@@ -75,17 +69,14 @@ const CommentModal: React.FC<Props> = ({ id, show, setShow }) => {
             console.log(error);
           }
         }
-      } catch (error) {
-        console.error('oops with encountered an error ', error);
+      } catch ({ message }) {
+        console.error(message);
       }
     } else {
       try {
-        const response = await fetch(`${apiUrl}/comments/${id}`, {
-          method: 'POST',
-          body: JSON.stringify(comments),
-          headers: { 'Content-Type': 'application/json' },
-        });
-        if (response.ok) {
+        const { data } = await API.post(`/comments/${id}`, comments);
+
+        if (data) {
           await fetchComments();
           setComments({
             text: '',
@@ -93,27 +84,18 @@ const CommentModal: React.FC<Props> = ({ id, show, setShow }) => {
           });
           setShow(false);
         }
-      } catch (error) {
-        console.error('oops with encountered an error ', error);
+      } catch ({ message }) {
+        console.error(message);
       }
     }
   };
 
-  const target = (e: any) => {
-    if (e.target && e.target.files[0]) {
-      setMedia(e.target.files[0]);
-    }
-  };
-
+  const target = (e: any) => e.target && setMedia(e.target.files[0]);
   const inputBtn = createRef<HTMLInputElement>();
   const openInputFile = () => inputBtn?.current?.click();
 
-  // useEffect(() => {
-  //   dispatch(getUsersAction());
-  // }, []);
-
   return (
-    <>
+    <React.Fragment>
       <Modal
         id="postModal"
         centered
@@ -122,7 +104,7 @@ const CommentModal: React.FC<Props> = ({ id, show, setShow }) => {
         animation={true}
       >
         <Modal.Header closeButton>
-          <Modal.Title>Post a comment</Modal.Title>
+          <Modal.Title className="text-dark">Post a comment</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <div className="d-flex userInfoContainer">
@@ -209,7 +191,7 @@ const CommentModal: React.FC<Props> = ({ id, show, setShow }) => {
           )}
         </Modal.Footer>
       </Modal>
-    </>
+    </React.Fragment>
   );
 };
 

@@ -1,18 +1,16 @@
 import React, { useEffect } from 'react';
 import { Col, Row, Spinner } from 'react-bootstrap';
-import { useDispatch, useSelector } from 'react-redux';
-import { getPostsAction, reRouteAction } from '../../redux/actions';
+import { useSelector } from 'react-redux';
+import { reRouteAction } from '../../redux/actions';
 import { GET_STORE } from '../../redux/store';
 import PostItem from './post-item/PostItem';
 
 const PostList: React.FC = () => {
-  const dispatch = useDispatch();
   const {
     data: { posts, isLoading },
   } = useSelector(GET_STORE);
 
   useEffect(() => {
-    dispatch(getPostsAction());
     reRouteAction(false);
   }, []);
 
@@ -23,15 +21,17 @@ const PostList: React.FC = () => {
           <Spinner animation="border" />{' '}
         </div>
       ) : (
-        <>
+        <React.Fragment>
           {posts.map((post) => (
             <Col key={post.id} md={12} lg={12} style={{ padding: '0px' }}>
               <div className="blogList">
-                <PostItem key={post.id} postId={post.id} />
+                <div>
+                  <PostItem key={post.id} post={post} />
+                </div>
               </div>
             </Col>
           ))}
-        </>
+        </React.Fragment>
       )}
     </Row>
   );

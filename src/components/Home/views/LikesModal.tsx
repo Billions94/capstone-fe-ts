@@ -78,8 +78,12 @@ const LikesModal: FC<Props> = ({ likeShow, setLikeShow, post }) => {
           <div>Liked by</div>
         </Modal.Header>
         <Modal.Body>
-          {post?.likes?.map((user, i) => (
-            <div key={i} id="searchContainer" className="d-flex mt-2">
+          {post?.likes?.map((user) => (
+            <div
+              key={user.userName}
+              id="searchContainer"
+              className="d-flex mt-2"
+            >
               <div
                 onClick={() => navigate(`/userProfile/${user?.id}`)}
                 className="linkToProfile"

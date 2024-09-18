@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
 import { Button, Modal } from 'react-bootstrap';
-import { Dispatch, SetStateAction } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { reRouteAction } from '../../../redux/actions';
+import { useNavigate } from 'react-router-dom';
+import { FormControlSize } from '../../../components/auth/interfaces';
 import { deletePost } from '../../../lib/requests/post';
+import { reRouteAction } from '../../../redux/actions';
+import { AnyAction } from 'redux';
 
 interface DeleteModalProps {
   postId: string;
@@ -20,7 +21,10 @@ const DeleteModal: React.FC<DeleteModalProps> = ({
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  async function deleteAndReroute(postId: string, dispatch: Dispatch<any>) {
+  async function deleteAndReroute(
+    postId: string,
+    dispatch: Dispatch<AnyAction>
+  ) {
     await deletePost(postId, dispatch);
     dispatch(reRouteAction(false));
     navigate('/home');
@@ -31,7 +35,7 @@ const DeleteModal: React.FC<DeleteModalProps> = ({
       <Modal
         id="deleteModal"
         style={{ borderRadius: '20px' }}
-        size="sm"
+        size={FormControlSize.SM}
         show={smShow}
         centered
         onHide={() => setSmShow(false)}
@@ -39,8 +43,8 @@ const DeleteModal: React.FC<DeleteModalProps> = ({
       >
         <Modal.Body className="m-auto">
           <div>
-            <h5 className="textColor">Delete Post?</h5>
-            <div className="text-muted">
+            <h5>Delete Post?</h5>
+            <div className="blur-white">
               This can't be undone and it will be removed from your profile, the
               feed of any accounts that follow you.
             </div>

@@ -1,26 +1,19 @@
 import React from 'react';
-import { Post, User } from '../../../redux/interfaces';
+import { Post } from '../../../redux/interfaces';
 import { useComments } from '../../hooks/useComments';
 import Loader from '../../loader/Loader';
 import SingleComment from './SingleComment';
 import './styles.scss';
 
-interface CommentsProps {
-  author: User | null;
-  post: Post | null;
-  id: string | undefined;
-}
-
-const CommentComponent = ({ post, id }: CommentsProps) => {
+const CommentComponent: React.FC<{ post: Post }> = ({ post }) => {
   const { comments, setComments, fetchComments } = useComments();
 
   return comments ? (
-    <div>
+    <div className="comment-container">
       {comments.map((c) =>
         c.postId !== post?.id ? null : (
           <SingleComment
             key={c.id}
-            id={id}
             post={post as Post}
             comment={c}
             comments={comments}

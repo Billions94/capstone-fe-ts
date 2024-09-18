@@ -1,45 +1,44 @@
 @import url('https://fonts.googleapis.com/css2?family=Neonderthaw&family=Pacifico&display=swap');
 
 .customBG {
-    /* background: url('https://blog.sabrillu.com/wp-content/uploads/2021/03/Titelbild-Hase-Groesse-klein.jpg') ; */
-    background-repeat: no-repeat ;
-    background-size: 100% ;
-    overflow: hidden ;
+  /* background: url('https://blog.sabrillu.com/wp-content/uploads/2021/03/Titelbild-Hase-Groesse-klein.jpg') ; */
+  background-repeat: no-repeat;
+  background-size: 100%;
+  overflow: hidden;
 }
 
-.customCOL1 {
-    background: url('https://i.pinimg.com/originals/2d/58/12/2d58125a9ca3fc308c97d1502217c1f6.png') ;
-    background-size: contain ;
-    background-repeat: no-repeat;
-    height: 72vh;
+.user-column-dm {
+  background: url('https://i.pinimg.com/originals/2d/58/12/2d58125a9ca3fc308c97d1502217c1f6.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  height: 72vh;
 }
 
-.customCOL2 {
-    background: url('https://i.pinimg.com/originals/44/94/70/44947010c7694713efe1205107124e12.png') ;
-    background-size: contain ;
-    background-repeat: no-repeat;
-    height: 72vh;
+.dm-column {
+  background: url('https://i.pinimg.com/originals/44/94/70/44947010c7694713efe1205107124e12.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  height: 72vh;
 }
 
 .customCOL3 {
-    background: url('https://i.pinimg.com/736x/02/9f/cd/029fcd5f5a8587dde7d15dc4265bfc23.jpg') ;
-    background-size: contain ;
-    background-repeat: no-repeat;
-    height: 72vh;
+  background: url('https://i.pinimg.com/736x/02/9f/cd/029fcd5f5a8587dde7d15dc4265bfc23.jpg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  height: 72vh;
 }
 
 .customCOL4 {
-    background: url('https://64.media.tumblr.com/f0f661c8ce0824f659e7b77f32075b24/tumblr_ojuhklpYC11sr0xk1o1_1280.png') ;
-    background-size: contain ;
-    background-repeat: no-repeat;
-    height: 72vh;
+  background: url('https://64.media.tumblr.com/f0f661c8ce0824f659e7b77f32075b24/tumblr_ojuhklpYC11sr0xk1o1_1280.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  height: 72vh;
 }
 
 .welcome {
-    font-size: 35px;
-    font-weight: 700;
-    font-family: 'Neonderthaw', cursive;
-    font-family: 'Pacifico', cursive;
-    color: #dadada;
-
+  font-size: 35px;
+  font-weight: 700;
+  font-family: 'Neonderthaw', cursive;
+  font-family: 'Pacifico', cursive;
+  color: #dadada;
 }

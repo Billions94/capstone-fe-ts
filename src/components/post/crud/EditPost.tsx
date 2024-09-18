@@ -2,11 +2,15 @@ import { createRef, Dispatch, FC, SetStateAction, useState } from 'react';
 import { Button, Container, Form, Modal } from 'react-bootstrap';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { InputSVG } from '../../../assets/svg/inputSVG';
 import { Verified } from '../../../assets/svg/verified';
+import { FormControlSize } from '../../../components/auth/interfaces';
+import { useInput } from '../../../components/hooks/useInput';
 import useAuthGuard from '../../../lib/index';
 import { updatePost } from '../../../lib/requests/post';
-import { ReduxState } from '../../../redux/interfaces';
+import { GET_STORE } from '../../../redux/store';
+import { MediaDetails } from './MediaDetails';
 import './styles.scss';
 
 interface Props {
@@ -22,8 +26,16 @@ const Edit: FC<Props> = ({ data: { postId, reload, setReload } }) => {
   const dispatch = useDispatch();
   const [show, setShow] = useState<boolean>(false);
   const [media, setMedia] = useState<string>('');
-  const [post, setPost] = useState({ text: '' });
-  const { user } = useSelector((state: ReduxState) => state['data']);
+  const { user, posts } = useSelector(GET_STORE).data;
+
+  const postToEdit = posts.find((post) => post.id === postId);
+  const previousPost = {
+    text: postToEdit?.text ?? '',
+    media: media ? media : postToEdit?.media ?? '',
+  };
+
+  const { input, handleChange } = useInput(previousPost);
+  const target = (e: any) => e.target && setMedia(e.target.files[0]);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -34,7 +46,10 @@ const Edit: FC<Props> = ({ data: { postId, reload, setReload } }) => {
   };
 
   const updatePostData = {
-    post,
+    post: {
+      text: input.text,
+      media: media ? media : postToEdit?.media,
+    },
     media,
     setMedia,
     postId: postId as string,
@@ -42,12 +57,6 @@ const Edit: FC<Props> = ({ data: { postId, reload, setReload } }) => {
     dispatch,
     refresh: reload,
     setRefresh: setReload,
-  };
-
-  const target = (e: any) => {
-    if (e.target && e.target.files[0]) {
-      setMedia(e.target.files[0]);
-    }
   };
 
   return (
@@ -58,39 +67,51 @@ const Edit: FC<Props> = ({ data: { postId, reload, setReload } }) => {
             alt=""
             className="lrdimg"
             width="17px"
-            src="https://img.icons8.com/ios-filled/50/ffffff/edit--v1.png"
+            src="https://img.icons8.com/ios-filled/50/000000/edit--v1.png"
           />
         </div>
 
-        <div className="primary" onClick={handleShow}>
+        <button
+          style={{
+            background: 'transparent',
+            border: 'none',
+            outline: 'none',
+            boxShadow: 'none',
+            color: 'inherit',
+          }}
+          className="primary"
+          onClick={handleShow}
+        >
           <div style={{ marginLeft: '15px' }}>
-            <span>edit</span>
+            <span className="text-dark">edit</span>
           </div>
-        </div>
+        </button>
 
         <Modal
-          id="postModal"
+          id="editModal"
           centered
-          className="px-4"
           animation={true}
           show={show}
           onHide={handleClose}
+          size={FormControlSize.LG}
+          aria-labelledby="example-modal-sizes-title-lg"
         >
           <Modal.Header closeButton>
-            <Modal.Title>edit Post</Modal.Title>
+            <Modal.Title className="text-dark">edit Post</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <div className="d-flex userInfoContainer">
-              <div>
+              <Link to={`/userProfile/${user.userName}`}>
                 <LazyLoadImage
                   src={user?.image}
                   alt=""
                   className="roundpic"
-                  width={47}
+                  width={40}
+                  height={40}
                 />
-              </div>
+              </Link>
               <div className="ml-2 userInfo">
-                <span>
+                <span className="text-dark">
                   {user?.firstName} {user?.lastName}
                   {user?.isVerified && (
                     <span className=" mt-1 ml-1  d-flex-row align-items-center">
@@ -104,12 +125,25 @@ const Edit: FC<Props> = ({ data: { postId, reload, setReload } }) => {
               <Form.Control
                 placeholder="wanna change something?"
                 as="textarea"
-                className="textarea"
+                className="textarea text-white"
+                name="text"
                 rows={5}
-                value={post.text}
-                onChange={(e) => setPost({ ...post, text: e.target.value })}
+                value={input.text}
+                onChange={handleChange}
               />
             </Form.Group>
+
+            {postToEdit?.media ? (
+              <MediaDetails {...{ media: postToEdit?.media }} />
+            ) : postToEdit?.sharedPost ? (
+              <MediaDetails
+                {...{
+                  media: postToEdit?.sharedPost.media,
+                  postContent: postToEdit?.sharedPost.text,
+                  flag: true,
+                }}
+              />
+            ) : null}
           </Modal.Body>
           <Modal.Footer>
             <div>
@@ -123,7 +157,7 @@ const Edit: FC<Props> = ({ data: { postId, reload, setReload } }) => {
                 {InputSVG}
               </button>
             </div>
-            {!post.text ? (
+            {!input.text ? (
               <Button
                 variant="primary"
                 disabled

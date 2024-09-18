@@ -1,5 +1,5 @@
 import { Avatar } from '@mui/material';
-import React, { FC, useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { Button, Col, Image, Row } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -17,7 +17,7 @@ import {
 } from '../../../redux/actions';
 import { ReduxState, User } from '../../../redux/interfaces';
 import Loader from '../../loader/Loader';
-import Recentposts from '../recentPost/RecentPosts';
+import RecentPosts from '../recentPost/RecentPosts';
 import Cover from './Cover';
 import EditProfile from './EditProfile';
 import './styles.scss';
@@ -84,7 +84,11 @@ const UserProfile: FC = () => {
 
   return user ? (
     <>
-      <Row id="userProfileContainer" className="justify-content-center">
+      <Row
+        id="userProfileContainer"
+        className="justify-content-center"
+        style={{ marginTop: '90px' }}
+      >
         <Col
           className="userJumbo magicRow jumbotron-banner1 p-0 pb-3"
           sm={12}
@@ -127,7 +131,7 @@ const UserProfile: FC = () => {
             {/*Cover Modal*/}
             <div className="coverModal">{id !== me ? null : <Cover />}</div>
 
-            <div id="jinx" className="d-flex px-4 col-lg-10">
+            <div id="user-details" className="d-flex px-4 col-lg-10">
               <div className="imgDiv ml5">
                 {!currentUser?.image ? (
                   <Avatar
@@ -164,9 +168,9 @@ const UserProfile: FC = () => {
                   </div>
                   <div className="">lives in {currentUser?.location}</div>
                   <div className="">{currentUser?.bio}</div>
-                  {(currentUser?.followers.length as number) > 1 ? (
+                  {(currentUser?.followers?.length as number) > 1 ? (
                     <span
-                      className=" customLinks1"
+                      className=" followers-link"
                       onClick={() => navigate(`/followers/${currentUser?.id}`)}
                     >
                       {currentUser?.followers?.length} followers
@@ -174,14 +178,14 @@ const UserProfile: FC = () => {
                   ) : null}
                   {currentUser?.followers?.length === 1 ? (
                     <span
-                      className=" customLinks1"
+                      className=" followers-link"
                       onClick={() => navigate(`/followers/${user?.id}`)}
                     >
                       {currentUser?.followers?.length} follower
                     </span>
                   ) : null}
                   {currentUser?.followers?.length === 0 ? (
-                    <span className=" customLinks1">
+                    <span className=" followers-link">
                       {currentUser?.followers?.length} follower
                     </span>
                   ) : null}
@@ -216,7 +220,7 @@ const UserProfile: FC = () => {
                   )}
                   {id !== me && (
                     <p>
-                      {!currentUser?.followers.some(
+                      {!currentUser?.followers?.some(
                         (user) => user.userName === me
                       ) ? (
                         <Button
@@ -243,7 +247,7 @@ const UserProfile: FC = () => {
             </div>
           </Row>
           <Col className="recentDiv">
-            <Recentposts userId={id} />
+            <RecentPosts />
           </Col>
         </Col>
       </Row>

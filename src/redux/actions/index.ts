@@ -1,11 +1,12 @@
 import { Dispatch } from 'redux';
 import API from '../../lib/API';
-import { Note, Reply, Token, User } from '../interfaces';
+import { Note, Post, Reply, Token, User } from '../interfaces';
 
 export enum Actions {
   SAVE_USER = 'SAVE_USER',
   GET_USERS = 'GET_USERS',
   SET_USER = 'SET_USER',
+  SET_POST = 'SET_POST',
   GET_POSTS = 'GET_POSTS',
   SET_POST_ID = 'SET_POST_ID',
   SET_COMMENTS = 'SET_COMMENTS',
@@ -15,6 +16,7 @@ export enum Actions {
   SET_COVER = 'SET_COVER',
   GET_COVER = 'GET_COVER',
   TOGGLE_FOLLOW = 'TOGGLE_FOLLOW',
+  TOGGLE_ACTIVITY_BAR = 'TOGGLE_ACTIVITY_BAR',
   TOGGLE_HIDE_ME = 'TOGGLE_HIDE_ME',
   TOGGLE_LIKE = 'TOGGLE_LIKE',
   TOGGLE_REROUTE = 'TOGGLE_REROUTE',
@@ -87,6 +89,20 @@ export const setUserAction =
       if (payload)
         dispatch({
           type: Actions.GET_USERS,
+          payload,
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+export const setPostAction =
+  (payload: Post): Dispatcher<void> =>
+  async (dispatch) => {
+    try {
+      if (payload)
+        dispatch({
+          type: Actions.SET_POST,
           payload,
         });
     } catch (error) {
@@ -239,6 +255,14 @@ export const hideNotesAction = (payload: boolean) => ({
   type: Actions.TOGGLE_HIDE_TASK,
   payload,
 });
+
+export const hideActivityBarAction = (payload: boolean) => {
+  console.log({ payload });
+  return {
+    type: Actions.TOGGLE_ACTIVITY_BAR,
+    payload,
+  };
+};
 
 export const saveNoteAction = (payload: Note) => ({
   type: Actions.SAVE_NOTES,

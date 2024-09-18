@@ -1,10 +1,10 @@
 import React from 'react';
 import { Button, Form, Modal } from 'react-bootstrap';
-import { Note, ReduxState } from '../../redux/interfaces';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteNoteAction, saveNoteAction } from '../../redux/actions';
-import Loader from '../loader/Loader';
 import { dateFormatter } from '../../lib';
+import { deleteNoteAction, saveNoteAction } from '../../redux/actions';
+import { Note, ReduxState } from '../../redux/interfaces';
+import Loader from '../loader/Loader';
 
 interface TaskListsProps {
   notes: Note[];
@@ -13,7 +13,7 @@ interface TaskListsProps {
   handleShow: () => void;
 }
 
-const TaskList = () => {
+const TaskList: React.FC<{ className?: string }> = ({ className }) => {
   const dispatch = useDispatch();
 
   const { notes } = useSelector((state: ReduxState) => state['data']);
@@ -49,7 +49,7 @@ const TaskList = () => {
   }
 
   return (
-    <div id="Task">
+    <div id="Task" className={className}>
       <Form onSubmit={handleSubmit}>
         <textarea
           className="form-control taskList"
@@ -79,7 +79,11 @@ const TaskList = () => {
                 [...notes]
                   .reverse()
                   .slice(0, 3)
-                  .map((note) => <li className="li">{note.content}</li>)
+                  .map((note) => (
+                    <li key={note.createdAt} className="li">
+                      {note.content}
+                    </li>
+                  ))
               ) : (
                 <div style={{ top: '15px', position: 'absolute' }}></div>
               )}

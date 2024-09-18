@@ -14,7 +14,6 @@ import { replyInput } from './inputs';
 import { ReplyInput } from './interface';
 
 interface SingleCommentProps {
-  id: string | undefined;
   post: Post;
   comment: Comment;
   comments: Comment[];
@@ -150,13 +149,13 @@ const SingleComment: React.FC<SingleCommentProps> = ({
           </Link>
           <div className="cAndR position-relative">
             <div className="d-flex customBB">
-              <div className="text-muted posted mb-2">
+              <div className="text-dark posted mb-2">
                 Posted: {dateFormatter(comment.createdAt)}
               </div>
               {comment.user.id !== me ? null : (
                 <Dropdown className="dropdowntext ml-auto" id={comment.user.id}>
                   <Dropdown.Toggle className="btn btn-dark dropdownbtn">
-                    <div className="text-muted dots">
+                    <div className="text-dark dots">
                       <b>
                         <strong>•••</strong>
                       </b>
@@ -192,7 +191,7 @@ const SingleComment: React.FC<SingleCommentProps> = ({
               {comment.user.firstName} {comment.user.lastName}
             </div>
             <div className="commentText">
-              <div>{comment.content}</div>
+              <p className="text-dark">{comment.content}</p>
               <div className="mt-2">
                 {!comment.media
                   ? null

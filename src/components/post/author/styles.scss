@@ -4,6 +4,12 @@
     height: 40px;
   }
 
+  .bio {
+    color: #000;
+    font-size: 13px;
+    margin-top: 10px !important;
+  }
+
   .author {
     margin-left: 10px;
   }
@@ -18,7 +24,6 @@
   .authorUserName {
     font-size: 12px;
     line-height: 14px;
-    color: #dadada !important;
   }
 
   .postTime {
@@ -36,11 +41,15 @@
 
   #authorDetails {
     cursor: pointer;
-  }
 
-  #authorDetails:hover .authorFirstName {
-    text-decoration: underline;
-    color: #0056b3 !important;
+    .authorFirstName {
+      color: #000 !important;
+    }
+
+    &:hover .authorFirstName {
+      text-decoration: underline;
+      color: #f91880 !important;
+    }
   }
 }
 
@@ -51,12 +60,12 @@
   flex-direction: column;
   width: 270px;
   pointer-events: auto;
-  background: rgb(2, 0, 36);
+  background: #ffd1c5;
   background-clip: padding-box;
   margin-top: 222px;
+  border: 1px solid #ffd1c5;
   border-radius: 20px;
-  border: 2px solid rgb(2, 0, 36);
-  box-shadow: 0px 0px 7px rgb(216, 215, 215);
+  //box-shadow: 0px 0px 7px rgb(216, 215, 215);
 
   .modal-content {
     position: relative;
@@ -64,9 +73,9 @@
     flex-direction: column;
     width: 100%;
     pointer-events: auto;
-    background-color: #fff;
+    background: #f9ead7;
     background-clip: padding-box;
-    border: 1px solid rgba(0, 0, 0, 0.2);
+    border: 1px solid #ffd1c5;
     border-radius: 20px;
   }
 
@@ -97,43 +106,21 @@
     margin-bottom: 0;
   }
 
-  .btnIcon {
-    border-radius: 50%;
-  }
-
-  .btnIcon:hover {
-    background: #24224a;
-    border-radius: 50px;
-  }
-
   .roundpic {
     border-radius: 50%;
   }
 
   .userDetails {
+    margin-top: 5px;
+    color: #000;
     font-weight: 500;
-    font-size: 15px;
+    font-size: 16px;
     line-height: 18px;
     font-style: bold;
-    font-family: -apple-system, system-ui, 'system-ui', 'Segoe UI', Roboto,
-      'Helvetica Neue', 'Fira Sans', Ubuntu, Oxygen, 'Oxygen Sans', Cantarell,
-      'Droid Sans', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Emoji',
-      'Segoe UI Symbol', 'Lucida Grande', Helvetica, Arial, sans-serif;
   }
 
   .userUserName {
-    font-size: 13px;
-  }
-
-  .textarea {
-    border: none;
-    resize: none;
-  }
-
-  .textarea:focus {
-    box-shadow: none;
-    outline: none;
-    border: none;
+    font-size: 14px;
   }
 
   .form1 {
@@ -144,18 +131,22 @@
     padding: 15px 15px !important;
   }
 
-  .followers1 {
+  .followers-user-info {
     cursor: pointer;
+    color: #000;
+    font-size: 13px;
+
+    &:hover {
+      text-decoration: underline;
+      color: #f91880;
+    }
   }
 
-  .followers1:hover {
-    text-decoration: underline;
-    color: #0056b3;
-  }
-
-  #userDetails:hover .userDetails {
-    text-decoration: underline;
-    color: #0056b3 !important;
+  #userDetails {
+    &:hover .userDetails {
+      text-decoration: underline;
+      color: #f91880 !important;
+    }
   }
 
   //

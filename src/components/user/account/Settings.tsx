@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   Accordion,
   Alert,
@@ -32,12 +32,14 @@ const Settings = () => {
 
   const [alert, setAlert] = useState(false);
   const [match, setMatch] = useState(false);
+  const [alertMessage, setAlertMessage] = useState('');
 
   const changePassword = async () => {
     try {
-      const { data } = await API.patch('/users/current-user/resetPassword', {
-        user: passwordState,
-      });
+      const { data } = await API.patch(
+        '/users/current-user/resetPassword',
+        passwordState
+      );
 
       if (data) {
         setPasswordState({
@@ -45,13 +47,16 @@ const Settings = () => {
           newPassword: '',
         });
         setAlert(true);
+        setAlertMessage('Password successfully changed!');
       }
     } catch (error) {
+      setAlert(true);
+      setAlertMessage('An error occured and your password was not changed!');
       console.log(error);
     }
   };
 
-  const checkPasswords = async () => {
+  const modifyPassword = async () => {
     if (passwordState.oldPassword === passwordState.newPassword) {
       await changePassword();
       triggerError();
@@ -74,12 +79,12 @@ const Settings = () => {
   }, []);
 
   return (
-    <Row className="justify-content-center">
-      <Col className="settingsCol" md={7}>
+    <Row className="justify-content-center" style={{ marginTop: '90px' }}>
+      <Col className="settings" md={7}>
         <ListGroup id="listGroup">
           <div className="profileInfo">
             <ListGroup.Item>
-              <h4 className="customh3">Profile information</h4>
+              <h4 className="settings-header-font">Profile information</h4>
             </ListGroup.Item>
             <ListGroup.Item>
               {/* <a href={`${feUrl}/userProfile/me`} className="a-links"> */}
@@ -90,8 +95,7 @@ const Settings = () => {
                 <div>
                   <h5>Name, location, bio</h5>
                   <p className="text-muted">
-                    choose how your name and profile info will be displayed to
-                    others
+                    choose how your name and profile info will be displayed
                   </p>
                 </div>
                 <div className="change">Change</div>
@@ -101,7 +105,7 @@ const Settings = () => {
           </div>
           <div className="">
             <ListGroup.Item className="customListItem">
-              <h4 className="customh3">Account management</h4>
+              <h4 className="settings-header-font">Account management</h4>
             </ListGroup.Item>
             <ListGroup.Item>
               {/* <a href={`${feUrl}/closeAccount`} className="a-links"> */}
@@ -123,7 +127,7 @@ const Settings = () => {
           </div>
           <div className="accountAccess">
             <ListGroup.Item className="customListItem">
-              <h4 className="customh3">Account access</h4>
+              <h4 className="settings-header-font">Account access</h4>
             </ListGroup.Item>
             <ListGroup.Item className="py-0 px-1">
               <Accordion id="accordion">
@@ -132,7 +136,9 @@ const Settings = () => {
                     <Accordion.Toggle as={Button} variant="link" eventKey="0">
                       <div className="d-flex justify-content-between">
                         <div>
-                          <h5 className="text-left">Email Addresses</h5>
+                          <h5 className="text-left text-dark">
+                            Email Addresses
+                          </h5>
                           <p className="text-muted">
                             add or remove email addresses on your account.
                           </p>
@@ -146,14 +152,12 @@ const Settings = () => {
                       <Container id="passwordContainer">
                         <div></div>
                         <Form id="form">
-                          <Form.Group
-                            controlId="blog-form"
-                            className="mt-3 formgroup"
-                          >
+                          <Form.Group controlId="blog-form" className="mt-3">
                             <Form.Label>Email address</Form.Label>
                             <Form.Control
                               size="lg"
                               type="password"
+                              className="form-control-custom"
                               value={passwordState.newPassword}
                               onChange={(e) =>
                                 setPasswordState({
@@ -165,7 +169,7 @@ const Settings = () => {
                           </Form.Group>
                           <Button
                             className="save-btn"
-                            onClick={() => checkPasswords()}
+                            onClick={() => modifyPassword()}
                           >
                             save
                           </Button>
@@ -195,7 +199,7 @@ const Settings = () => {
                       <Container id="passwordContainer">
                         {alert ? (
                           <Alert className="alert" variant="success">
-                            Password successfully changed!
+                            {alertMessage}
                           </Alert>
                         ) : null}
                         {match ? (
@@ -209,7 +213,7 @@ const Settings = () => {
                         </div>
                         <div>
                           <img
-                            src="https://img.icons8.com/ios-glyphs/50/ffffff/privacy.png"
+                            src="https://img.icons8.com/ios-glyphs/50/000000/privacy.png"
                             width="20px"
                             alt=""
                           />
@@ -254,15 +258,16 @@ const Settings = () => {
                             controlId="blog-form"
                             className="mt-3 formgroup"
                           >
-                            <Form.Label>Password</Form.Label>
+                            <Form.Label>Old Password</Form.Label>
                             <Form.Control
                               size="lg"
                               type="password"
-                              value={passwordState.newPassword}
+                              className="form-control-custom"
+                              value={passwordState.oldPassword}
                               onChange={(e) =>
                                 setPasswordState({
                                   ...passwordState,
-                                  newPassword: e.target.value,
+                                  oldPassword: e.target.value,
                                 })
                               }
                             />
@@ -271,10 +276,11 @@ const Settings = () => {
                             controlId="blog-form"
                             className="mt-3 formgroup"
                           >
-                            <Form.Label>Confirm password</Form.Label>
+                            <Form.Label>New password</Form.Label>
                             <Form.Control
                               size="lg"
                               type="password"
+                              className="form-control-custom"
                               value={passwordState.newPassword}
                               onChange={(e) =>
                                 setPasswordState({
